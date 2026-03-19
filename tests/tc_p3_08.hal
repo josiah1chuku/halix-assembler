@@ -1,0 +1,7 @@
+# TC-P3-08: Bad immediate format missing =
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    SETI 5
+    HALT
+.END

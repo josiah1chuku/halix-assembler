@@ -1,0 +1,7 @@
+# TC-P3-05: Undefined branch label
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    BRANCH Nowhere
+    HALT
+.END

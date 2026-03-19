@@ -1,0 +1,16 @@
+# Test Program
+# Assignment ID: TC-P0-01
+# Program Name: tc_p0_01.hal
+# Purpose: Valid structure test
+# Author: QA Team
+# Date: 2025
+
+.ALLOC 2
+X .DATA =5
+Y .DATA =10
+
+.BEGIN
+    LOAD X
+    ADD Y
+    HALT
+.END

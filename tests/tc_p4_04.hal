@@ -1,0 +1,10 @@
+# TC-P4-04: Program with base-index instructions
+.ALLOC 2
+Base .DATA =0
+Idx  .DATA =2
+.BEGIN
+    LOADA Base
+    SHINDX
+    iLOAD
+    HALT
+.END

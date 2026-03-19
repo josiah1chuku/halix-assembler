@@ -1,0 +1,8 @@
+# TC-P4-03: Program with immediate operand
+.ALLOC 1
+X .DATA =0
+.BEGIN
+    SETI =42
+    STORE X
+    HALT
+.END

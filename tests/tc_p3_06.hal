@@ -1,0 +1,7 @@
+# TC-P3-06: Missing operand on DATA instruction
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    LOAD
+    HALT
+.END

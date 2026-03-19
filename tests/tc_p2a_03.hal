@@ -1,0 +1,8 @@
+# Assignment ID: TC-P2a-03
+# Purpose: Completely unknown mnemonic
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    JUMP X
+    HALT
+.END

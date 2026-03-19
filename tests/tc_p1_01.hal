@@ -1,0 +1,9 @@
+# Assignment ID: TC-P1-01
+# Program Name: tc_p1_01.hal
+# Purpose: Valid single variable with value
+# Author: QA Team / Date: 2025
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    HALT
+.END

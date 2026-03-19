@@ -1,0 +1,6 @@
+# Test / Assignment ID: TC-P0-04 / Author: QA / Date: 2025
+.ALLOC abc
+X .DATA =1
+.BEGIN
+    HALT
+.END

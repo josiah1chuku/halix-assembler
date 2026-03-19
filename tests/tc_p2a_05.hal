@@ -1,0 +1,8 @@
+# Assignment ID: TC-P2a-05
+# Purpose: Misspelled mnemonic
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    LAOD X
+    HALT
+.END

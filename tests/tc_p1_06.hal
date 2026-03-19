@@ -1,0 +1,9 @@
+# Assignment ID: TC-P1-06
+# Program Name: tc_p1_06.hal
+# Purpose: Invalid initializer missing = sign
+# Author: QA Team / Date: 2025
+.ALLOC 1
+X .DATA 5
+.BEGIN
+    HALT
+.END

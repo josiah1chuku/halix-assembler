@@ -1,0 +1,7 @@
+# Test / Assignment ID: TC-P0-05 / Author: QA / Date: 2025
+X .DATA =1
+.ALLOC 2
+Y .DATA =2
+.BEGIN
+    HALT
+.END
