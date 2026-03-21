@@ -1,5 +1,5 @@
 #!/bin/bash
-ASSEMBLER="./halixAssembler.exe"
+ASSEMBLER="./halixAssembler"
 PASS=0; FAIL=0; TOTAL=0
 
 run_test() {
