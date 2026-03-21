@@ -1,0 +1,11 @@
+# Assignment ID: TC-P1-05
+# Program Name: tc_p1_05.hal
+# Purpose: Too many variables overflow ALLOC
+# Author: QA Team / Date: 2025
+.ALLOC 2
+X .DATA =1
+Y .DATA =2
+Z .DATA =3
+.BEGIN
+    HALT
+.END

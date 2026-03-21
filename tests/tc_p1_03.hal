@@ -1,0 +1,9 @@
+# Assignment ID: TC-P1-03
+# Program Name: tc_p1_03.hal
+# Purpose: Invalid variable name starting with digit
+# Author: QA Team / Date: 2025
+.ALLOC 1
+1X .DATA =5
+.BEGIN
+    HALT
+.END

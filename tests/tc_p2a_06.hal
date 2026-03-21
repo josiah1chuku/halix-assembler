@@ -1,0 +1,9 @@
+# Assignment ID: TC-P2a-06
+# Purpose: Mixed valid and invalid mnemonics
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    LOAD X
+    STOR X
+    HALT
+.END

@@ -1,0 +1,6 @@
+# TC-P3-07: Unexpected operand on NONE instruction
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    HALT X
+.END

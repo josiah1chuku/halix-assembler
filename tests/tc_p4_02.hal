@@ -1,0 +1,13 @@
+# TC-P4-02: Program with branch label
+.ALLOC 2
+X .DATA =1
+Limit .DATA =3
+.BEGIN
+Loop:   LOAD X
+        CEQ Limit
+        BRT Done
+        INCR
+        STORE X
+        BRANCH Loop
+Done:   HALT
+.END

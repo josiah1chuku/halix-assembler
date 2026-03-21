@@ -1,0 +1,9 @@
+# Assignment ID: TC-P1-08
+# Program Name: tc_p1_08.hal
+# Purpose: Valid variable with no initializer
+# Author: QA Team / Date: 2025
+.ALLOC 1
+X .DATA
+.BEGIN
+    HALT
+.END

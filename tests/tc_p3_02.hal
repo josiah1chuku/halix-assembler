@@ -1,0 +1,7 @@
+# TC-P3-02: Valid immediate operand
+.ALLOC 1
+X .DATA =0
+.BEGIN
+    SETI =5
+    HALT
+.END

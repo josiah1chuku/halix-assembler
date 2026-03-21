@@ -1,0 +1,9 @@
+# TC-P4-01: Valid program generates correct .hlx
+.ALLOC 2
+X .DATA =5
+Y .DATA =10
+.BEGIN
+    LOAD X
+    ADD Y
+    HALT
+.END

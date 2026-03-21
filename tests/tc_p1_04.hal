@@ -1,0 +1,10 @@
+# Assignment ID: TC-P1-04
+# Program Name: tc_p1_04.hal
+# Purpose: Duplicate variable name
+# Author: QA Team / Date: 2025
+.ALLOC 2
+X .DATA =5
+X .DATA =10
+.BEGIN
+    HALT
+.END

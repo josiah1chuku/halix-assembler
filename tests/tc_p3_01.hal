@@ -1,0 +1,9 @@
+# TC-P3-01: Valid DATA operand
+.ALLOC 2
+X .DATA =5
+Y .DATA =10
+.BEGIN
+    LOAD X
+    ADD Y
+    HALT
+.END

@@ -1,0 +1,11 @@
+# Assignment ID: TC-P1-02
+# Program Name: tc_p1_02.hal
+# Purpose: Valid multiple variables
+# Author: QA Team / Date: 2025
+.ALLOC 3
+X .DATA =5
+Y .DATA =10
+Z .DATA =0
+.BEGIN
+    HALT
+.END

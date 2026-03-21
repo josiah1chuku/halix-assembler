@@ -1,0 +1,9 @@
+# Assignment ID: TC-P2a-04
+# Purpose: Valid base-index instruction
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    LOADA X
+    SHINDX
+    HALT
+.END

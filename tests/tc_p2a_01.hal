@@ -1,0 +1,10 @@
+# Assignment ID: TC-P2a-01
+# Purpose: All valid mnemonics
+.ALLOC 2
+X .DATA =5
+Y .DATA =10
+.BEGIN
+    LOAD X
+    ADD Y
+    HALT
+.END

@@ -1,0 +1,8 @@
+# Assignment ID: TC-P2a-02
+# Purpose: Wrong case mnemonic
+.ALLOC 1
+X .DATA =5
+.BEGIN
+    load X
+    HALT
+.END
