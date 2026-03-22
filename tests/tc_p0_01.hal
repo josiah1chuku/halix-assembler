@@ -3,7 +3,7 @@
 # Program Name: tc_p0_01.hal
 # Purpose: Valid structure test
 # Author: QA Team
-# Date: 2025
+# Date: 2026
 
 .ALLOC 2
 X .DATA =5
