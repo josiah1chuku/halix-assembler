@@ -1,7 +1,7 @@
 # Assignment ID: TC-P1-07
 # Program Name: tc_p1_07.hal
 # Purpose: Invalid initializer non-numeric
-# Author: QA Team / Date: 2025
+# Author: QA Team / Date: 2026
 .ALLOC 1
 X .DATA =abc
 .BEGIN
