@@ -155,6 +155,10 @@ void pass4(const vector<string>&   sourceLines,
     // ── Write .hlx data section ───────────────────────────────────────────────
     lst << "\n===== END OF LISTING =====\n";
     out << dataVals.size() << "\n";
-    for (int v : dataVals)
-        out << std::setw(4) << std::setfill('0') << v << "\n";
+    for (int v : dataVals) {
+        if (v < 0)
+            out << "-" << std::setw(3) << std::setfill('0') << -v << "\n";
+        else
+            out << std::setw(4) << std::setfill('0') << v << "\n";
+    }
 }
