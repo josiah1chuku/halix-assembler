@@ -1,0 +1,6 @@
+# TC-P0-05: .DATA appears before .ALLOC — ordering violation
+x .DATA =5
+.ALLOC 2
+.BEGIN
+HALT
+.END

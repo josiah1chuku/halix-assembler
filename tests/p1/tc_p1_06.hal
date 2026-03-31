@@ -1,0 +1,6 @@
+# TC-P1-06: Initializer missing = sign (e.g., 44 instead of =44)
+.ALLOC 1
+z .DATA 44
+.BEGIN
+HALT
+.END

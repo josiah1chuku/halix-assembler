@@ -1,0 +1,8 @@
+# TC-P2a-06: One invalid mnemonic among otherwise valid code — no .hlx produced
+.ALLOC 1
+x .DATA =1
+.BEGIN
+LOAD x
+FROBNICATE x
+HALT
+.END

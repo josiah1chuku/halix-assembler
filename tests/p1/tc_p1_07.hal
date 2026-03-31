@@ -1,0 +1,6 @@
+# TC-P1-07: Non-numeric initializer (e.g., =abc)
+.ALLOC 1
+q .DATA =abc
+.BEGIN
+HALT
+.END

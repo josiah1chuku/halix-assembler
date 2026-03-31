@@ -1,0 +1,11 @@
+# TC-INT-01: Classic loop — accumulate sum x+y into z
+.ALLOC 3
+x .DATA =10
+y .DATA =3
+z .DATA
+.BEGIN
+LOAD x
+ADD y
+STORE z
+HALT
+.END

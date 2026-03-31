@@ -1,0 +1,7 @@
+# TC-P1-09: Underscore-prefixed variable name — valid identifier
+.ALLOC 1
+_count .DATA =0
+.BEGIN
+LOAD _count
+HALT
+.END

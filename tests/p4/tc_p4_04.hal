@@ -1,0 +1,10 @@
+# TC-P4-04: LOADA with first DATA var at address 0 — should encode as 3500
+.ALLOC 2
+Base .DATA =0
+val  .DATA =9
+.BEGIN
+LOADA Base
+iCLR
+iLOAD
+HALT
+.END

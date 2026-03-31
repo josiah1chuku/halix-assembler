@@ -1,0 +1,7 @@
+# TC-P2b-02: Two labeled instructions — Mid should be at address 1
+.ALLOC 1
+x .DATA =0
+.BEGIN
+First:  LOAD x
+Second: HALT
+.END

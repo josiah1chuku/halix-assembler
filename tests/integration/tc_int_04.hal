@@ -1,0 +1,12 @@
+# TC-INT-04: Base-index addressing — load array element
+.ALLOC 3
+arr  .DATA =0
+el0  .DATA =7
+el1  .DATA =9
+.BEGIN
+LOADA arr
+iCLR
+iINCR
+iLOAD
+HALT
+.END

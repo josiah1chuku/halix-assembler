@@ -1,0 +1,10 @@
+# TC-P2a-01: All valid mnemonics — should pass with no errors
+.ALLOC 2
+x .DATA =10
+y .DATA =3
+.BEGIN
+LOAD x
+ADD y
+STORE x
+HALT
+.END

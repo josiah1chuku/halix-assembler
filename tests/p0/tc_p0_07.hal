@@ -1,0 +1,5 @@
+# TC-P0-07: .END without a matching .BEGIN
+.ALLOC 2
+x .DATA =1
+y .DATA =2
+.END

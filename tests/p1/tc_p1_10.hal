@@ -1,0 +1,7 @@
+# TC-P1-10: Negative integer initializer =val — should be accepted
+.ALLOC 1
+n .DATA =-7
+.BEGIN
+LOAD n
+HALT
+.END

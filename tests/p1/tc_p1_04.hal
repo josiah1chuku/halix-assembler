@@ -1,0 +1,7 @@
+# TC-P1-04: Duplicate variable name — second declaration should error
+.ALLOC 2
+count .DATA =0
+count .DATA =5
+.BEGIN
+HALT
+.END

@@ -1,0 +1,6 @@
+# TC-ERR-03: Missing .BEGIN — instructions outside code block
+.ALLOC 1
+x .DATA =5
+LOAD x
+HALT
+.END

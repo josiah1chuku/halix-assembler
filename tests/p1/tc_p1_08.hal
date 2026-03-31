@@ -1,0 +1,11 @@
+# TC-P1-08: Three variables — verify addresses 0, 1, 2
+.ALLOC 3
+x .DATA =1
+y .DATA =2
+z .DATA =3
+.BEGIN
+LOAD x
+ADD y
+STORE z
+HALT
+.END

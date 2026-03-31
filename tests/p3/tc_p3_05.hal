@@ -1,0 +1,8 @@
+# TC-P3-05: BRANCH to undefined label — should error exit 3
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD x
+BRANCH Nowhere
+HALT
+.END

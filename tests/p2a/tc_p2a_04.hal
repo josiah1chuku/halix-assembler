@@ -1,0 +1,11 @@
+# TC-P2a-04: Valid base-index instruction iLOAD — should be accepted
+.ALLOC 3
+base .DATA =0
+v1   .DATA =5
+v2   .DATA =3
+.BEGIN
+LOADA base
+iCLR
+iLOAD
+HALT
+.END

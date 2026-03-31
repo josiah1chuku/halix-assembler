@@ -1,0 +1,7 @@
+# TC-P1-01: Valid single variable with initializer
+.ALLOC 1
+score .DATA =42
+.BEGIN
+LOAD score
+HALT
+.END

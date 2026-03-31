@@ -1,0 +1,14 @@
+# suites/pass1.sh — Pass 1: Data Symbol Table
+should_run "P1" || return 0
+echo ""; echo -e "${CYAN}--- Pass 1: Data Symbol Table ---${RESET}"
+
+run_test "TC-P1-01" "p1/tc_p1_01.hal" 0 "NO errors"
+run_test "TC-P1-02" "p1/tc_p1_02.hal" 0 "NO errors"
+run_test "TC-P1-03" "p1/tc_p1_03.hal" 2 "Invalid variable name"
+run_test "TC-P1-04" "p1/tc_p1_04.hal" 2 "Duplicate variable"
+run_test "TC-P1-05" "p1/tc_p1_05.hal" 2 "only reserved"
+run_test "TC-P1-06" "p1/tc_p1_06.hal" 2 "Invalid"
+run_test "TC-P1-07" "p1/tc_p1_07.hal" 2 "Invalid"
+run_test "TC-P1-08" "p1/tc_p1_08.hal" 0 "NO errors"
+run_test "TC-P1-09" "p1/tc_p1_09.hal" 0 "NO errors"
+run_test "TC-P1-10" "p1/tc_p1_10.hal" 0 "NO errors"

@@ -1,0 +1,9 @@
+# TC-P0-01: Fully valid .hal file — .ALLOC, .BEGIN, .END all correct
+.ALLOC 2
+x .DATA =5
+y .DATA =3
+.BEGIN
+LOAD x
+ADD y
+HALT
+.END

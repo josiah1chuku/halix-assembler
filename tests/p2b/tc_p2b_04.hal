@@ -1,0 +1,9 @@
+# TC-P2b-04: BRANCH operand includes a trailing colon (typo "Loop:")
+# The colon makes operand "Loop:" — not found in label table
+.ALLOC 1
+x .DATA =0
+.BEGIN
+Loop: LOAD x
+BRANCH Loop:
+HALT
+.END

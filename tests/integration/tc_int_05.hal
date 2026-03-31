@@ -1,0 +1,8 @@
+# TC-INT-05: Program ending with HALT encodes last word as 9900
+.ALLOC 1
+x .DATA =1
+.BEGIN
+LOAD x
+INCR
+HALT
+.END

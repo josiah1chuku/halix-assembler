@@ -1,0 +1,8 @@
+# TC-INT-02: Immediate arithmetic — SETI / ADDI / SUBI chain
+.ALLOC 0
+.BEGIN
+SETI =10
+ADDI =5
+SUBI =3
+HALT
+.END
