@@ -1,0 +1,6 @@
+# TC-P0-08: .BEGIN with no closing .END — missing .END
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD x
+HALT

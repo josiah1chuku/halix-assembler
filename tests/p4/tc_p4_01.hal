@@ -1,0 +1,9 @@
+# TC-P4-01: LOAD/ADD/HALT — first instruction should encode as 0300
+.ALLOC 2
+x .DATA =5
+y .DATA =3
+.BEGIN
+LOAD x
+ADD y
+HALT
+.END

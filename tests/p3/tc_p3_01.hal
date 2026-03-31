@@ -1,0 +1,7 @@
+# TC-P3-01: Valid DATA operand — LOAD x where x is in DST
+.ALLOC 1
+x .DATA =7
+.BEGIN
+LOAD x
+HALT
+.END

@@ -1,0 +1,9 @@
+# TC-INT-06: Mix of initialized and uninitialized .DATA
+# init=5, uninit should appear as 9999 in .hlx data section
+.ALLOC 2
+init   .DATA =5
+uninit .DATA
+.BEGIN
+LOAD init
+HALT
+.END

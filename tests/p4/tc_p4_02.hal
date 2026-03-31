@@ -1,0 +1,9 @@
+# TC-P4-02: Program with branch label — LOAD x first instruction = 0300
+.ALLOC 1
+x .DATA =0
+.BEGIN
+LOAD x
+BRF Done
+INCR
+Done: HALT
+.END

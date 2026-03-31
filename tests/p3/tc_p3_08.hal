@@ -1,0 +1,6 @@
+# TC-P3-08: Bad immediate format — SETI missing = sign
+.ALLOC 0
+.BEGIN
+SETI 42
+HALT
+.END

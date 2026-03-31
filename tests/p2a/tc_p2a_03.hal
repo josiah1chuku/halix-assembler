@@ -1,0 +1,8 @@
+# TC-P2a-03: Two invalid mnemonics — both should be logged
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LAAD x
+STOREE x
+HALT
+.END

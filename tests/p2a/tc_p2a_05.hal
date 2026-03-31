@@ -1,0 +1,8 @@
+# TC-P2a-05: Unknown mnemonic 'JUMP' — should error
+.ALLOC 1
+x .DATA =0
+.BEGIN
+LOAD x
+JUMP x
+HALT
+.END

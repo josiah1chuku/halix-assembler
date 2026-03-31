@@ -1,0 +1,9 @@
+# TC-P3-03: Valid branch label operand — BRF to a defined label
+.ALLOC 1
+x .DATA =0
+.BEGIN
+LOAD x
+BRF  Done
+INCR
+Done: HALT
+.END

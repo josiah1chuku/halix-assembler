@@ -1,0 +1,10 @@
+# TC-P4-07: Forward branch — BRANCH to label at address 2
+# BRF encodes as 12XX where XX = address of Done (instruction 2)
+.ALLOC 1
+x .DATA =0
+.BEGIN
+LOAD x
+BRF Done
+INCR
+Done: HALT
+.END

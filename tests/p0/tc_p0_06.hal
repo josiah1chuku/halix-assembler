@@ -1,0 +1,8 @@
+# TC-P0-06: Two .BEGIN without intervening .END
+.ALLOC 1
+x .DATA =1
+.BEGIN
+LOAD x
+.BEGIN
+HALT
+.END

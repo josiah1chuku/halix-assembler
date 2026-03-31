@@ -1,0 +1,6 @@
+# TC-P0-04: .ALLOC with non-integer argument
+.ALLOC abc
+x .DATA =5
+.BEGIN
+HALT
+.END

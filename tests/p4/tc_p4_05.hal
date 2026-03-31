@@ -1,0 +1,5 @@
+# TC-P4-05: HALT alone — should encode as 9900
+.ALLOC 0
+.BEGIN
+HALT
+.END

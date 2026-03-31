@@ -1,95 +1,233 @@
 #!/bin/bash
-ASSEMBLER="./halixAssembler"
+# =============================================================================
+# run_all_tests.sh  —  HALIX Assembler Full Test Suite
+# =============================================================================
+# Modular design: each pass group is sourced from tests/suites/<pass>.sh
+# Works on: Ubuntu (Colab / CI), MSYS2 UCRT64 (Windows local)
+# Usage:  bash tests/run_all_tests.sh [--pass P0] [--filter PATTERN]
+# =============================================================================
+
+# ── Resolve script location so tests run from any working directory ──────────
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+ASSEMBLER="$REPO_ROOT/halixAssembler"
+
+# ── CLI options ──────────────────────────────────────────────────────────────
+FILTER_PASS=""      # --pass P0  runs only Pass 0 suite
+FILTER_PATTERN=""   # --filter TC-P4  runs only tests matching pattern
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --pass)    FILTER_PASS="$2";    shift 2 ;;
+        --filter)  FILTER_PATTERN="$2"; shift 2 ;;
+        *) echo "Unknown option: $1"; exit 1 ;;
+    esac
+done
+
+# ── Globals ───────────────────────────────────────────────────────────────────
 PASS=0; FAIL=0; TOTAL=0
+FAILED_IDS=()
 
+# ── Colour helpers (disabled when not a TTY) ─────────────────────────────────
+if [ -t 1 ]; then
+    GREEN='\033[0;32m'; RED='\033[0;31m'; YELLOW='\033[1;33m'
+    CYAN='\033[0;36m'; RESET='\033[0m'
+else
+    GREEN=''; RED=''; YELLOW=''; CYAN=''; RESET=''
+fi
+
+# =============================================================================
+# Core test primitives
+# =============================================================================
+
+# run_test ID FILE EXPECTED_EXIT EXPECTED_MSG_FRAGMENT
+#   Runs the assembler on FILE, checks exit code and .log content.
 run_test() {
-    local id=$1 file=$2 expect_exit=$3 expect_msg=$4
+    local id="$1" file="$2" expect_exit="$3" expect_msg="$4"
+
+    # Apply filters
+    [[ -n "$FILTER_PATTERN" && "$id" != *"$FILTER_PATTERN"* ]] && return
     TOTAL=$((TOTAL + 1))
-    $ASSEMBLER "$file" > /dev/null 2>&1
-    actual_exit=$?
-    local filename=$(basename "$file" .hal)
-    actual_msg=$(cat "${filename}.log" 2>/dev/null)
-    if [ "$actual_exit" -eq "$expect_exit" ]; then
-        if [ -z "$expect_msg" ] || echo "$actual_msg" | grep -q "$expect_msg"; then
-            echo "  PASS  $id"; PASS=$((PASS + 1))
-        else
-            echo "  FAIL  $id — expected: '$expect_msg'"
-            echo "         got: '$actual_msg'"; FAIL=$((FAIL + 1))
-        fi
+
+    local abs_file="$SCRIPT_DIR/$file"
+    if [[ ! -f "$abs_file" ]]; then
+        echo -e "  ${RED}SKIP${RESET}  $id — file not found: $file"
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id"); return
+    fi
+
+    # Run assembler from a temp dir so output files don't clutter the repo
+    local tmpdir; tmpdir=$(mktemp -d)
+    local basename; basename=$(basename "$file" .hal)
+    cp "$abs_file" "$tmpdir/${basename}.hal"
+    cp "$REPO_ROOT/halix.opcode" "$tmpdir/" 2>/dev/null || true
+
+    pushd "$tmpdir" > /dev/null
+    "$ASSEMBLER" "${basename}.hal" > /dev/null 2>&1
+    local actual_exit=$?
+    local actual_msg; actual_msg=$(cat "${basename}.log" 2>/dev/null)
+    popd > /dev/null
+    rm -rf "$tmpdir"
+
+    local ok=1
+    if [[ "$actual_exit" -ne "$expect_exit" ]]; then
+        echo -e "  ${RED}FAIL${RESET}  $id — exit: expected=$expect_exit got=$actual_exit"
+        echo    "         log: $actual_msg"
+        ok=0
+    elif [[ -n "$expect_msg" ]] && ! echo "$actual_msg" | grep -q "$expect_msg"; then
+        echo -e "  ${RED}FAIL${RESET}  $id — expected msg fragment: '$expect_msg'"
+        echo    "         got: $actual_msg"
+        ok=0
+    fi
+
+    if [[ "$ok" -eq 1 ]]; then
+        echo -e "  ${GREEN}PASS${RESET}  $id"
+        PASS=$((PASS + 1))
     else
-        echo "  FAIL  $id — expected exit $expect_exit, got $actual_exit"
-        echo "         log: $actual_msg"; FAIL=$((FAIL + 1))
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id")
     fi
 }
 
+# run_test_file ID FILE LINE EXPECTED_LINE_CONTENT
+#   Runs the assembler on FILE, checks that line LINE of the .hlx equals EXPECTED.
 run_test_file() {
-    local id=$1 file=$2 expect_line=$3 expect_content=$4
+    local id="$1" file="$2" expect_line="$3" expect_content="$4"
+
+    [[ -n "$FILTER_PATTERN" && "$id" != *"$FILTER_PATTERN"* ]] && return
     TOTAL=$((TOTAL + 1))
-    $ASSEMBLER "$file" > /dev/null 2>&1
-    local filename=$(basename "$file" .hal)
-    actual_line=$(sed -n "${expect_line}p" "${filename}.hlx" 2>/dev/null)
-    if [ "$actual_line" = "$expect_content" ]; then
-        echo "  PASS  $id"; PASS=$((PASS + 1))
+
+    local abs_file="$SCRIPT_DIR/$file"
+    if [[ ! -f "$abs_file" ]]; then
+        echo -e "  ${RED}SKIP${RESET}  $id — file not found: $file"
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id"); return
+    fi
+
+    local tmpdir; tmpdir=$(mktemp -d)
+    local basename; basename=$(basename "$file" .hal)
+    cp "$abs_file" "$tmpdir/${basename}.hal"
+    cp "$REPO_ROOT/halix.opcode" "$tmpdir/" 2>/dev/null || true
+
+    pushd "$tmpdir" > /dev/null
+    "$ASSEMBLER" "${basename}.hal" > /dev/null 2>&1
+    local actual_line; actual_line=$(sed -n "${expect_line}p" "${basename}.hlx" 2>/dev/null)
+    popd > /dev/null
+    rm -rf "$tmpdir"
+
+    if [[ "$actual_line" == "$expect_content" ]]; then
+        echo -e "  ${GREEN}PASS${RESET}  $id"
+        PASS=$((PASS + 1))
     else
-        echo "  FAIL  $id — expected line $expect_line: '$expect_content', got: '$actual_line'"
-        FAIL=$((FAIL + 1))
+        echo -e "  ${RED}FAIL${RESET}  $id — .hlx line $expect_line"
+        echo    "         expected: '$expect_content'"
+        echo    "         got:      '$actual_line'"
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id")
     fi
 }
 
+# run_test_no_hlx ID FILE
+#   Asserts that the assembler does NOT produce a .hlx file (error cases).
+run_test_no_hlx() {
+    local id="$1" file="$2"
+
+    [[ -n "$FILTER_PATTERN" && "$id" != *"$FILTER_PATTERN"* ]] && return
+    TOTAL=$((TOTAL + 1))
+
+    local abs_file="$SCRIPT_DIR/$file"
+    if [[ ! -f "$abs_file" ]]; then
+        echo -e "  ${RED}SKIP${RESET}  $id — file not found: $file"
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id"); return
+    fi
+
+    local tmpdir; tmpdir=$(mktemp -d)
+    local basename; basename=$(basename "$file" .hal)
+    cp "$abs_file" "$tmpdir/${basename}.hal"
+    cp "$REPO_ROOT/halix.opcode" "$tmpdir/" 2>/dev/null || true
+
+    pushd "$tmpdir" > /dev/null
+    "$ASSEMBLER" "${basename}.hal" > /dev/null 2>&1
+    local hlx_exists=0
+    [[ -f "${basename}.hlx" ]] && hlx_exists=1
+    popd > /dev/null
+    rm -rf "$tmpdir"
+
+    if [[ "$hlx_exists" -eq 0 ]]; then
+        echo -e "  ${GREEN}PASS${RESET}  $id"
+        PASS=$((PASS + 1))
+    else
+        echo -e "  ${RED}FAIL${RESET}  $id — .hlx was produced but should NOT have been"
+        FAIL=$((FAIL + 1)); FAILED_IDS+=("$id")
+    fi
+}
+
+# section LABEL — print a section header, respecting --pass filter
+section() {
+    local label="$1" pass_tag="$2"
+    [[ -n "$FILTER_PASS" && "$pass_tag" != "$FILTER_PASS" ]] && return 0
+    echo ""
+    echo -e "${CYAN}--- $label ---${RESET}"
+    return 0  # always return 0 — callers use this as a gate
+}
+
+# should_run PASS_TAG — returns 0 (true) if this pass should run
+should_run() {
+    [[ -z "$FILTER_PASS" || "$FILTER_PASS" == "$1" ]]
+}
+
+# =============================================================================
+# Print header
+# =============================================================================
 echo "========================================"
-echo "  HALIX Assembler - Full Test Suite"
+echo "  HALIX Assembler — Full Test Suite"
+echo "  Assembler : $ASSEMBLER"
+echo "  Test root : $SCRIPT_DIR"
 echo "========================================"
 
-echo ""; echo "--- Pass 0: Directive Validation ---"
-run_test "TC-P0-01" "tests/tc_p0_01.hal" 0 "NO errors"
-run_test "TC-P0-02" "tests/tc_p0_02.hal" 2 "Unknown directive"
-run_test "TC-P0-03" "tests/tc_p0_03.hal" 2 "missing size argument"
-run_test "TC-P0-04" "tests/tc_p0_04.hal" 2 "not an integer"
-run_test "TC-P0-05" "tests/tc_p0_05.hal" 2 "before .ALLOC"
-run_test "TC-P0-06" "tests/tc_p0_06.hal" 2 "Second .BEGIN"
+# Verify assembler binary exists
+if [[ ! -x "$ASSEMBLER" ]]; then
+    echo -e "${RED}ERROR: Assembler not found or not executable: $ASSEMBLER${RESET}"
+    echo "Compile first:  g++ -std=c++17 -o halixAssembler halixAssembler.cpp"
+    exit 1
+fi
 
-echo ""; echo "--- Pass 1: Data Symbol Table ---"
-run_test "TC-P1-01" "tests/tc_p1_01.hal" 0 "NO errors"
-run_test "TC-P1-02" "tests/tc_p1_02.hal" 0 "NO errors"
-run_test "TC-P1-03" "tests/tc_p1_03.hal" 2 "Invalid variable name"
-run_test "TC-P1-04" "tests/tc_p1_04.hal" 2 "Duplicate variable"
-run_test "TC-P1-05" "tests/tc_p1_05.hal" 2 "only reserved"
-run_test "TC-P1-06" "tests/tc_p1_06.hal" 2 "Invalid"
-run_test "TC-P1-07" "tests/tc_p1_07.hal" 2 "Invalid"
-run_test "TC-P1-08" "tests/tc_p1_08.hal" 0 "NO errors"
+# =============================================================================
+# SOURCE EACH PASS SUITE
+# Each suite file defines only run_test / run_test_file calls.
+# =============================================================================
 
-echo ""; echo "--- Pass 2a: Mnemonic Validation ---"
-run_test "TC-P2a-01" "tests/tc_p2a_01.hal" 0 "NO errors"
-run_test "TC-P2a-02" "tests/tc_p2a_02.hal" 2 "Unknown instruction"
-run_test "TC-P2a-03" "tests/tc_p2a_03.hal" 2 "Unknown instruction"
-run_test "TC-P2a-04" "tests/tc_p2a_04.hal" 0 "NO errors"
-run_test "TC-P2a-05" "tests/tc_p2a_05.hal" 2 "Unknown instruction"
-run_test "TC-P2a-06" "tests/tc_p2a_06.hal" 2 "Unknown instruction"
+for suite in \
+    "suites/pass0.sh" \
+    "suites/pass1.sh" \
+    "suites/pass2a.sh" \
+    "suites/pass2b.sh" \
+    "suites/pass3.sh" \
+    "suites/pass4.sh" \
+    "suites/integration.sh"
+do
+    suite_file="$SCRIPT_DIR/$suite"
+    if [[ -f "$suite_file" ]]; then
+        # shellcheck source=/dev/null
+        source "$suite_file"
+    else
+        echo -e "${YELLOW}WARNING: Suite file not found: $suite_file${RESET}"
+    fi
+done
 
-echo ""; echo "--- Pass 3: Operand Validation ---"
-run_test "TC-P3-01" "tests/tc_p3_01.hal" 0 "NO errors"
-run_test "TC-P3-02" "tests/tc_p3_02.hal" 0 "NO errors"
-run_test "TC-P3-03" "tests/tc_p3_03.hal" 0 "NO errors"
-run_test "TC-P3-04" "tests/tc_p3_04.hal" 3 "Undefined variable"
-run_test "TC-P3-05" "tests/tc_p3_05.hal" 3 "label not found"
-run_test "TC-P3-06" "tests/tc_p3_06.hal" 3 "requires an operand"
-run_test "TC-P3-07" "tests/tc_p3_07.hal" 3 "takes no operand"
-run_test "TC-P3-08" "tests/tc_p3_08.hal" 3 "immediate operand"
-
-echo ""; echo "--- Pass 4: Machine Code Generation ---"
-# .hlx format: line1=.DATA, line2=data values, line3=.CODE, line4+=instructions
-run_test      "TC-P4-01"     "tests/tc_p4_01.hal" 0 "NO errors"
-run_test_file "TC-P4-01-hlx" "tests/tc_p4_01.hal" 2 "0300"
-run_test      "TC-P4-02"     "tests/tc_p4_02.hal" 0 "NO errors"
-run_test_file "TC-P4-02-hlx" "tests/tc_p4_02.hal" 2 "0300"
-run_test      "TC-P4-03"     "tests/tc_p4_03.hal" 0 "NO errors"
-run_test_file "TC-P4-03-hlx" "tests/tc_p4_03.hal" 2 "2442"
-run_test      "TC-P4-04"     "tests/tc_p4_04.hal" 0 "NO errors"
-run_test_file "TC-P4-04-hlx" "tests/tc_p4_04.hal" 2 "3500"
-
+# =============================================================================
+# Summary
+# =============================================================================
 echo ""
 echo "========================================"
 printf "  Results: %d passed, %d failed, %d total\n" $PASS $FAIL $TOTAL
 echo "========================================"
-if [ "$FAIL" -eq 0 ]; then echo "  ALL TESTS PASSED"; exit 0
-else echo "  SOME TESTS FAILED"; exit 1; fi
+
+if [[ ${#FAILED_IDS[@]} -gt 0 ]]; then
+    echo -e "${RED}  Failed tests:${RESET}"
+    for id in "${FAILED_IDS[@]}"; do
+        echo "    - $id"
+    done
+fi
+
+if [[ "$FAIL" -eq 0 ]]; then
+    echo -e "${GREEN}  ALL TESTS PASSED${RESET}"; exit 0
+else
+    echo -e "${RED}  SOME TESTS FAILED${RESET}"; exit 1
+fi

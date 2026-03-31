@@ -1,0 +1,8 @@
+# TC-P2b-03: Duplicate label 'Start' — second should error
+.ALLOC 1
+x .DATA =0
+.BEGIN
+Start: LOAD x
+Start: STORE x
+HALT
+.END

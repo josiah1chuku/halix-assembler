@@ -1,0 +1,6 @@
+# TC-P1-03: Variable name starts with a digit — invalid identifier
+.ALLOC 1
+3bad .DATA =1
+.BEGIN
+HALT
+.END

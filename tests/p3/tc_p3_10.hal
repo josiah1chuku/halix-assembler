@@ -1,0 +1,7 @@
+# TC-P3-10: DATA-type instruction given immediate =5 (LOAD =5)
+# Assembler allows = prefix for DATA operands; verify no error and correct encode
+.ALLOC 0
+.BEGIN
+LOAD =5
+HALT
+.END

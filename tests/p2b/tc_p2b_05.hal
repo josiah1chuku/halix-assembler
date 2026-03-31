@@ -1,0 +1,8 @@
+# TC-P2b-05: Label-only line with no instruction following it
+.ALLOC 1
+x .DATA =0
+.BEGIN
+Orphan:
+LOAD x
+HALT
+.END

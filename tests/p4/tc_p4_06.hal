@@ -1,0 +1,6 @@
+# TC-P4-06: Uninit variable should appear as 9999 in .hlx data section
+.ALLOC 1
+uninit .DATA
+.BEGIN
+HALT
+.END

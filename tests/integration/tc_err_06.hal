@@ -1,0 +1,1 @@
+# TC-ERR-06: Completely empty .hal file — should fail gracefully, no crash

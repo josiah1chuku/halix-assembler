@@ -1,0 +1,11 @@
+# TC-P4-08: Multiple data values — verify data section ordering
+.ALLOC 3
+a .DATA =10
+b .DATA =20
+c .DATA =30
+.BEGIN
+LOAD a
+ADD b
+STORE c
+HALT
+.END

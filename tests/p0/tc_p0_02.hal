@@ -1,0 +1,6 @@
+# TC-P0-02: Unknown directive .ALLOCATE (typo) — should error
+.ALLOCATE 2
+x .DATA =5
+.BEGIN
+HALT
+.END

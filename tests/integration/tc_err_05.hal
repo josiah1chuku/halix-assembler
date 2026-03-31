@@ -1,0 +1,8 @@
+# TC-ERR-05: BRANCH to undefined label — exit 3
+.ALLOC 1
+x .DATA =1
+.BEGIN
+LOAD x
+BRANCH Phantom
+HALT
+.END

@@ -1,0 +1,7 @@
+# TC-P2b-01: Single labeled instruction at IM address 0
+.ALLOC 1
+x .DATA =0
+.BEGIN
+Start: LOAD x
+HALT
+.END

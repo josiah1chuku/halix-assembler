@@ -1,0 +1,7 @@
+# TC-P3-06: DATA instruction with no operand — LOAD requires one
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD
+HALT
+.END

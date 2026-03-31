@@ -1,0 +1,8 @@
+# TC-P2a-02: Wrong-case mnemonic 'AdD' — case-sensitive, should error
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD x
+AdD x
+HALT
+.END

@@ -1,0 +1,6 @@
+# TC-P0-03: .ALLOC with no size argument
+.ALLOC
+x .DATA =5
+.BEGIN
+HALT
+.END

@@ -1,0 +1,7 @@
+# TC-P1-02: Valid variable with no initializer (uninitialized)
+.ALLOC 1
+total .DATA
+.BEGIN
+LOAD total
+HALT
+.END

@@ -1,0 +1,7 @@
+# TC-P3-04: Undefined variable used in LOAD — should error exit 3
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD ghost
+HALT
+.END

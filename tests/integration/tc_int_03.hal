@@ -1,0 +1,9 @@
+# TC-INT-03: Forward branch encoding — BRF jumps over INCR to Done
+.ALLOC 1
+flag .DATA =0
+.BEGIN
+LOAD flag
+BRF  Skip
+INCR
+Skip: HALT
+.END

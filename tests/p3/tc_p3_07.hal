@@ -1,0 +1,7 @@
+# TC-P3-07: NONE instruction given an unexpected operand — HALT takes none
+.ALLOC 1
+x .DATA =5
+.BEGIN
+LOAD x
+HALT x
+.END

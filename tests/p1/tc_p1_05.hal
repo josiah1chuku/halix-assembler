@@ -1,0 +1,7 @@
+# TC-P1-05: More .DATA declarations than .ALLOC reserved (overflow)
+.ALLOC 1
+a .DATA =1
+b .DATA =2
+.BEGIN
+HALT
+.END
