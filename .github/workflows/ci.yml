@@ -35,3 +35,12 @@ jobs:
           [ "$(sed -n '3p' e2e.hlx)" = "0501" ] && echo "PASS: ADD y=0501"
           [ "$(sed -n '5p' e2e.hlx)" = "9900" ] && echo "PASS: HALT=9900"
           [ "$(sed -n '9p' e2e.hlx)" = "9999" ] && echo "PASS: uninit=9999"
+      - name: Execute .hlx on halix.crun
+        run: |
+          chmod +x halix.crun
+          ./halixAssembler first.hal
+          echo "5" | ./halix.crun first.hlx > output.txt
+          cat output.txt
+          grep -q "0015" output.txt \
+            && echo "PASS: halix.crun output correct (5 x 3 = 15)" \
+            || (echo "FAIL: unexpected output" && cat output.txt && exit 1)
