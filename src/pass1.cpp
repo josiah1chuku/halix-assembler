@@ -1,5 +1,6 @@
 // =============================================================================
 // pass1.cpp — Pass 1: Data Symbol Table Construction
+// Handles both .DATA [=value] and .BLOCK N directives.
 // =============================================================================
 
 #include "pass1.h"
@@ -30,10 +31,12 @@ void pass1(const vector<string>& sourceLines, AssemblerContext& ctx) {
         }
         if (!inData) continue;
 
-        // ── Expect: varName .DATA [=value] ────────────────────────────────────
-        if (tokens.size() < 2 || tokens[1] != ".DATA") {
+        // ── Expect: varName .DATA [=value]  OR  varName .BLOCK N ─────────────
+        if (tokens.size() < 2
+                || (tokens[1] != ".DATA" && tokens[1] != ".BLOCK")) {
             ctx.logError(lineNo,
-                "Expected '[name] .DATA [=val]', got: " + line);
+                "Expected '[name] .DATA [=val]' or '[name] .BLOCK N', got: "
+                + line);
             continue;
         }
 
@@ -47,6 +50,34 @@ void pass1(const vector<string>& sourceLines, AssemblerContext& ctx) {
             ctx.logError(lineNo, "Duplicate variable name: " + varName);
             continue;
         }
+
+        // ── .BLOCK N ─────────────────────────────────────────────────────────
+        if (tokens[1] == ".BLOCK") {
+            if (tokens.size() < 3) {
+                ctx.logError(lineNo,
+                    ".BLOCK missing size argument — example: arr .BLOCK 5");
+                continue;
+            }
+            int blockN;
+            if (!parseInt(tokens[2], blockN) || blockN <= 0) {
+                ctx.logError(lineNo,
+                    ".BLOCK size must be a positive integer: " + tokens[2]);
+                continue;
+            }
+            if (ctx.allocCount > 0 && address + blockN > ctx.allocCount) {
+                ctx.logError(lineNo,
+                    ".BLOCK " + std::to_string(blockN)
+                    + " exceeds remaining .ALLOC space ("
+                    + std::to_string(ctx.allocCount - address)
+                    + " cells left)");
+                continue;
+            }
+            ctx.dataSymbolTable[varName] = {address, 0, false, blockN};
+            address += blockN;
+            continue;
+        }
+
+        // ── .DATA [=value] ────────────────────────────────────────────────────
         if (ctx.allocCount > 0 && address >= ctx.allocCount) {
             ctx.logError(lineNo,
                 "Too many .DATA declarations — .ALLOC only reserved "
@@ -74,7 +105,7 @@ void pass1(const vector<string>& sourceLines, AssemblerContext& ctx) {
             }
         }
 
-        ctx.dataSymbolTable[varName] = {address, value, hasValue};
+        ctx.dataSymbolTable[varName] = {address, value, hasValue, 1};
         address++;
     }
 }

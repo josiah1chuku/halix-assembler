@@ -16,8 +16,10 @@ struct InstrInfo {
 };
 
 // One entry in the Data Symbol Table (DST), built by pass1.
+// blockSize = 1 for .DATA entries, N for .BLOCK N entries.
 struct DataSymbol {
     int  address;
     int  value;
     bool hasValue;
+    int  blockSize = 1;   // 1 for .DATA, N for .BLOCK N
 };
