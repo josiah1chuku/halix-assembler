@@ -1,0 +1,9 @@
+.ALLOC 7
+x    .DATA =10
+arr  .BLOCK 5
+y    .DATA
+.BEGIN
+  LOADA arr
+  LOAD x
+  HALT
+.END
