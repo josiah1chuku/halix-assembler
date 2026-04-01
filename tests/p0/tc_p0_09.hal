@@ -1,0 +1,5 @@
+arr  .BLOCK 5
+.ALLOC 5
+.BEGIN
+  HALT
+.END

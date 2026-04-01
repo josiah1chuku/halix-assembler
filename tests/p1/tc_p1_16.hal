@@ -1,0 +1,6 @@
+.ALLOC 6
+arr  .BLOCK 3
+arr  .BLOCK 3
+.BEGIN
+  HALT
+.END

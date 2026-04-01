@@ -1,0 +1,34 @@
+# block_demo.hal
+# Demonstrates .BLOCK: stores 10, 20, 30 into array, prints each value.
+
+.ALLOC 3
+arr  .BLOCK 3
+
+.BEGIN
+        LOADA  arr      # BASE = base address of arr
+
+        # Store 10 into arr[0]
+        iCLR            # INDEX = 0
+        SETI   =10      # ACC = 10
+        iSTORE          # arr[0] = 10
+
+        # Store 20 into arr[1]
+        iINCR           # INDEX = 1
+        SETI   =20      # ACC = 20
+        iSTORE          # arr[1] = 20
+
+        # Store 30 into arr[2]
+        iINCR           # INDEX = 2
+        SETI   =30      # ACC = 30
+        iSTORE          # arr[2] = 30
+
+        # Print arr[0], arr[1], arr[2]
+        iCLR            # INDEX = 0
+        iWRITE          # print arr[0]  -> 10
+        iINCR           # INDEX = 1
+        iWRITE          # print arr[1]  -> 20
+        iINCR           # INDEX = 2
+        iWRITE          # print arr[2]  -> 30
+
+        HALT
+.END

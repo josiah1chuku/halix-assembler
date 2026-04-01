@@ -1,0 +1,6 @@
+.ALLOC 5
+arr  .BLOCK 5
+.BEGIN
+  LOADA arr
+  HALT
+.END
