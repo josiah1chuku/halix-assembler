@@ -71,22 +71,34 @@ void pass4(const vector<string>&   sourceLines,
     // ── Listing: data section ─────────────────────────────────────────────────
     lst << "===== HALIX ASSEMBLER LISTING =====\n\n--- DATA SECTION ---\n";
     lst << std::left << std::setw(8) << "Addr"
-                     << std::setw(14) << "Name" << "Value\n"
-        << string(40, '-') << "\n";
+                     << std::setw(14) << "Name"
+                     << std::setw(10) << "Size"
+                     << "Value\n"
+        << string(48, '-') << "\n";
     for (const auto& entry : sortedData) {
         const string&     name = entry.second.first;
         const DataSymbol& ds   = entry.second.second;
         lst << std::setw(8)  << ds.address
             << std::setw(14) << name
+            << std::setw(10) << ds.blockSize
             << (ds.hasValue ? std::to_string(ds.value) : "(uninit)") << "\n";
     }
 
-    // ── Collect data values (uninit → UNINIT_SENTINEL) ────────────────────────
+    // ── Collect data values ───────────────────────────────────────────────────
+    // .DATA  → emit 1 cell  (initialized value or UNINIT_SENTINEL)
+    // .BLOCK → emit blockSize cells, all UNINIT_SENTINEL
     vector<int> dataVals;
-    for (const auto& entry : sortedData)
-        dataVals.push_back(entry.second.second.hasValue
-                           ? entry.second.second.value
-                           : UNINIT_SENTINEL);
+    for (const auto& entry : sortedData) {
+        const DataSymbol& ds = entry.second.second;
+        if (ds.blockSize > 1) {
+            // .BLOCK: all cells uninitialised
+            for (int i = 0; i < ds.blockSize; i++)
+                dataVals.push_back(UNINIT_SENTINEL);
+        } else {
+            // .DATA: use value or sentinel
+            dataVals.push_back(ds.hasValue ? ds.value : UNINIT_SENTINEL);
+        }
+    }
 
     // ── Count valid instructions (needed for codeSize header line) ────────────
     int  codeSize = 0;

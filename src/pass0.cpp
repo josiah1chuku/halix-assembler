@@ -59,14 +59,16 @@ void pass0(const vector<string>& sourceLines, AssemblerContext& ctx) {
             continue;
         }
 
-        // ── .DATA before .ALLOC ───────────────────────────────────────────────
+        // ── .DATA or .BLOCK before .ALLOC ────────────────────────────────────
         if (allocExistsInFile && !allocSeen
-                && tokens.size() >= 2 && tokens[1] == ".DATA")
+                && tokens.size() >= 2
+                && (tokens[1] == ".DATA" || tokens[1] == ".BLOCK"))
             ctx.logError(lineNo,
-                ".DATA declared before .ALLOC — .ALLOC must come first");
+                ".DATA/.BLOCK declared before .ALLOC — .ALLOC must come first");
 
         // ── Unknown directive inside data section ─────────────────────────────
-        if (inData && tokens.size() >= 2 && tokens[1] != ".DATA")
+        if (inData && tokens.size() >= 2
+                && tokens[1] != ".DATA" && tokens[1] != ".BLOCK")
             ctx.logError(lineNo,
                 "Unknown directive in DATA section: " + tokens[1]);
 
