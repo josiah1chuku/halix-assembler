@@ -1,0 +1,73 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: add2or3.hal
+# Author:       starksL369 London Starks 
+# Date:         due 10/27/25
+# Purpose:      Write the 1st Halix Assembly Program 
+#               that involves decisions and looping. 
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+# sum = 0; 
+# cin >> k; 
+# if (k == 2)
+# {
+#   cin >> a >> b; sum = a + b; cout << k << sum;
+# }
+# else if (k == 3)
+# {
+#   cin >> a >> b >> c; sum = a + b + c; cout << k << sum;
+# }
+# else
+#   cout << k << sum
+#
+#   Example: input 44 produces   output 64
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+        .ALLOC 5            # reserve memory for variables
+K       .DATA
+A       .DATA
+B       .DATA
+C       .DATA
+SUM     .DATA=0 
+
+        .BEGIN
+        READ K
+        LOAD K
+        CLE c2       ; compare K to 2
+        BRF CHECK3   ; if K != 2, jump
+        READ A
+        READ B
+        LOAD A
+        ADD B
+        STORE SUM
+        WRITE K
+        WRITE SUM
+        HALT
+
+CHECK3: LOAD K
+        CLE c3       ; compare K to 3
+        BRF ELSE
+        READ A
+        READ B
+        READ C
+        LOAD A
+        ADD B
+        ADD C
+        STORE SUM
+        WRITE K
+        WRITE SUM
+        HALT
+
+ELSE:   LOAD K
+        WRITE K
+        LOAD SUM
+        WRITE SUM
+        HALT
+        .END
