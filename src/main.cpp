@@ -216,6 +216,7 @@ int main(int argc, char* argv[]) {
         string flag = argv[1];
         if (flag == "--help" || flag == "-h") { printHelp(); return 0; }
         if (flag == "--man"  || flag == "-m") { printMan();  return 0; }
+        if (flag == "--version" || flag == "-v") { cout << "HALIX Assembler v1.1.0 -- CEN5075, FAMU, 2026\n"; return 0; }
     }
 
     if (argc < 2) {
