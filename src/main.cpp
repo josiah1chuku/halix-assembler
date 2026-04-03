@@ -195,8 +195,9 @@ static void printMan() {
 "    v1.0   Initial release -- 36 tests\n"
 "    v1.1   Added .BLOCK directive -- 77 tests\n"
 "\n"
-"AUTHORS\n"
-"    HALIX Assembler Development Team -- CEN5075, FAMU, 2026\n"
+    "AUTHORS\n"
+    "    Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku\n"
+"    Avenger Assembler -- CEN5075, FAMU, 2026\n"
 "\n"
 "SEE ALSO\n"
 "    halix.crun(1)    Halix runtime emulator\n"
@@ -242,6 +243,8 @@ int main(int argc, char* argv[]) {
     }
 
     cout << "=== HALIX Assembler v4.0 ===\n"
+     << "    Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku\n"
+     << "    Avenger Assembler -- CEN5075, FAMU, 2026\n"
          << "Source : " << srcFile << "\n\n";
 
     // ── Pass 0: Directive Validation ──────────────────────────────────────────
