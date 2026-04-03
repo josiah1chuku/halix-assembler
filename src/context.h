@@ -47,6 +47,21 @@ struct AssemblerContext {
         warnLog.push_back(entry);
     }
 
+
+    void logErrorWithPointer(int lineNo, const std::string& msg,
+                             const std::string& sourceLine,
+                             const std::string& token) {
+        std::string entry = "  LINE " + std::to_string(lineNo) + ": ERROR - " + msg;
+        std::cerr << entry << "\n";
+        size_t pos = sourceLine.find(token);
+        if (pos != std::string::npos) {
+            std::cerr << "         " << sourceLine << "\n";
+            std::cerr << "         " << std::string(pos, ' ') << "^\n";
+        }
+        errorLog.push_back(entry);
+        hadError = true;
+    }
+
     // Wipe all state — useful for unit tests that reuse a context object.
     void reset() {
         instructionTable.clear();
