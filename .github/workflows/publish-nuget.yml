@@ -1,0 +1,96 @@
+# =============================================================================
+# publish-nuget.yml -- HALIX Assembler NuGet Package Publisher
+# Builds the assembler, packs it as a NuGet tool package,
+# and publishes to GitHub Packages on every push to main.
+# =============================================================================
+
+name: Publish Assembler NuGet Package
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      # ── 1. Check out repository ───────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Set up .NET SDK ────────────────────────────────────────────────
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # ── 3. Install g++ ────────────────────────────────────────────────────
+      - name: Install compiler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y g++
+
+      # ── 4. Build the assembler ────────────────────────────────────────────
+      - name: Build halixAssembler
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -o halixAssembler halixAssembler.cpp
+          echo "BUILD OK"
+
+      # ── 5. Verify --version works ─────────────────────────────────────────
+      - name: Verify assembler
+        run: ./halixAssembler --version
+
+      # ── 6. Run full test suite ────────────────────────────────────────────
+      - name: Run all 77 tests
+        run: bash tests/run_all_tests.sh
+
+      # ── 7. Stage package layout ───────────────────────────────────────────
+      - name: Stage package artifacts
+        run: |
+          mkdir -p package/tools
+          cp halixAssembler package/tools/halixAssembler
+          cp halix.opcode   package/tools/halix.opcode
+          cp halix.crun     package/tools/halix.crun
+          cp README.md      package/tools/README.md
+          echo "STAGED:"
+          ls -la package/tools/
+
+      # ── 8. Configure GitHub Packages NuGet source ─────────────────────────
+      - name: Configure GitHub Packages NuGet source
+        run: |
+          dotnet nuget remove source GitHub 2>/dev/null || true
+          dotnet nuget add source \
+            "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --name "GitHub" \
+            --username "${{ github.actor }}" \
+            --password "${{ secrets.GITHUB_TOKEN }}" \
+            --store-password-in-clear-text
+
+      # ── 9. Auto-version the NuGet package ────────────────────────────────
+      - name: Auto-version package
+        run: |
+          sed -i "s/<version>.*<\/version>/<version>1.2.${{ github.run_number }}<\/version>/" assembler.nuspec
+          echo "Package version: 1.2.${{ github.run_number }}"
+
+      # ── 10. Pack NuGet package ────────────────────────────────────────────
+      - name: Pack NuGet package
+        run: |
+          mkdir -p .nupkg
+          dotnet nuget pack assembler.nuspec --output ./.nupkg
+          echo "PACKED:"
+          ls -la .nupkg/
+
+      # ── 11. Push to GitHub Packages ───────────────────────────────────────
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget push ".nupkg/*.nupkg" \
+            --source "GitHub" \
+            --api-key "${{ secrets.GITHUB_TOKEN }}" \
+            --skip-duplicate
+          echo "PUBLISHED SUCCESSFULLY"
