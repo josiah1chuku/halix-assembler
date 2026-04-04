@@ -327,7 +327,7 @@ static void printMan() {
 "           pointer error messages; team authors display\n"
 "\n"
 "AUTHORS\n"
-"    Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku\n"
+"    Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n"
 "    Avenger Assembler -- CEN5075, FAMU, 2026\n"
 "\n"
 "SEE ALSO\n"
@@ -348,7 +348,7 @@ int main(int argc, char* argv[]) {
         string flag = argv[1];
         if (flag == "--help" || flag == "-h") { printHelp(); return 0; }
         if (flag == "--man"  || flag == "-m") { printMan();  return 0; }
-        if (flag == "--version" || flag == "-v") { cout << "HALIX Assembler v1.2.0 -- CEN5075, FAMU, 2026\n"; return 0; }
+        if (flag == "--version" || flag == "-v") { cout << "HALIX Assembler v1.2.0\n" << "Authors: Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n" << "Team:    Avenger Assembler -- CEN5075, FAMU, 2026\n"; return 0; }
     }
 
     if (argc < 2) {
@@ -374,7 +374,7 @@ int main(int argc, char* argv[]) {
     }
 
     cout << "=== HALIX Assembler v4.0 ===\n"
-         << "    Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku\n"
+         << "    Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n"
          << "    Avenger Assembler -- CEN5075, FAMU, 2026\n"
          << "Source : " << srcFile << "\n\n";
 
