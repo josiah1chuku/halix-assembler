@@ -7,23 +7,32 @@ echo "  HALIX Assembler -- Avenger Assembler"
 echo "  CEN5075, FAMU, 2026"
 echo "========================================"
 echo ""
-echo "Cloning repository..."
-git clone https://github.com/josiah1chuku/halix-assembler.git
-cd halix-assembler
+
+if [ -d "halix-assembler" ]; then
+    echo "Updating existing installation..."
+    cd halix-assembler
+    git pull origin main
+else
+    echo "Cloning repository..."
+    git clone https://github.com/josiah1chuku/halix-assembler.git
+    cd halix-assembler
+fi
 
 echo "Compiling assembler..."
 g++ -std=c++17 -O2 -o halixAssembler halixAssembler.cpp
 
 echo "Adding to PATH..."
-echo "export PATH=\"\$PATH:$(pwd)\"" >> ~/.bashrc
-export PATH="$PATH:$(pwd)"
+INSTALL_DIR=$(pwd)
+grep -q "halix-assembler" ~/.bashrc || echo "export PATH=\"\$PATH:$INSTALL_DIR\"" >> ~/.bashrc
+export PATH="$PATH:$INSTALL_DIR"
 
 echo ""
 echo "========================================"
 echo "  Installation complete!"
-echo "  Version: $(./halixAssembler --version)"
+echo "  $(./halixAssembler --version)"
 echo "========================================"
 echo ""
+echo "Run: halixAssembler --version"
 echo "Run: halixAssembler --help"
 echo "Run: halixAssembler --man"
 echo "Run: halixAssembler myprogram.hal"
