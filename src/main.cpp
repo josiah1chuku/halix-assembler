@@ -419,6 +419,12 @@ int main(int argc, char* argv[]) {
 
     // ── Pass 4: Machine Code Generation ──────────────────────────────────────
     cout << "Pass 4: Generating machine code...\n";
+    // ── .BLOCK variables never indexed warning ───────────────────────────────
+    for (auto& kv : ctx.dataSymbolTable) {
+        if (kv.second.blockSize > 1 && !ctx.indexedBlocks.count(kv.first))
+            ctx.logWarning(0, ".BLOCK variable '" + kv.first + "' is never indexed with LOADA");
+    }
+
     pass4(sourceLines, base, ctx);
 
     // ── Write log and display symbol tables ───────────────────────────────────

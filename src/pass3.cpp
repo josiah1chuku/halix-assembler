@@ -76,6 +76,7 @@ void pass3(const vector<string>& sourceLines, AssemblerContext& ctx) {
                     ctx.logError(lineNo, "Malformed immediate: " + operand);
             } else if (!ctx.dataSymbolTable.count(operand)) {
                 ctx.logError(lineNo, "Undefined variable: " + operand);
+            if (mnemonic == "LOADA") ctx.indexedBlocks.insert(operand);
             }
         }
     }
