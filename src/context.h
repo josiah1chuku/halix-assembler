@@ -10,6 +10,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <set>
 
 struct AssemblerContext {
     // ── Instruction Opcode Table (IOT) — populated by loadConfig ─────────────
@@ -28,6 +29,7 @@ struct AssemblerContext {
     // ── Error / warning accumulation ─────────────────────────────────────────
     std::vector<std::string> errorLog;
     std::vector<std::string> warnLog;
+    std::set<std::string>    indexedBlocks;
     bool hadError = false;
 
     // ── Logging helpers ───────────────────────────────────────────────────────
@@ -56,6 +58,7 @@ struct AssemblerContext {
         allocFound = false;
         errorLog.clear();
         warnLog.clear();
+        indexedBlocks.clear();
         hadError = false;
     }
 };
