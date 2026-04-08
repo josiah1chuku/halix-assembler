@@ -1,0 +1,8 @@
+# Test .BLOCK with initializer list
+.ALLOC 5
+a  .DATA =7
+Z  .BLOCK =3,=9,=17
+.BEGIN
+LOADA Z
+HALT
+.END
