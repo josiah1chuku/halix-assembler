@@ -5,10 +5,10 @@ echo ""; echo -e "${CYAN}--- Integration: Happy Path ---${RESET}"
 run_test "TC-INT-01" "integration/tc_int_01.hal" 0 "NO errors"
 run_test "TC-INT-02" "integration/tc_int_02.hal" 0 "NO errors"
 run_test "TC-INT-03" "integration/tc_int_03.hal" 0 "NO errors"
-run_test "TC-INT-04" "integration/tc_int_04.hal" 0 "NO errors"
+run_test "TC-INT-04" "integration/tc_int_04.hal" 0 "warning"
 run_test "TC-INT-05" "integration/tc_int_05.hal" 0 "NO errors"
 run_test_file "TC-INT-05-hlx" "integration/tc_int_05.hal" 4 "9900"
-run_test "TC-INT-06" "integration/tc_int_06.hal" 0 "NO errors"
+run_test "TC-INT-06" "integration/tc_int_06.hal" 0 "warning"
 # .hlx: codeSize=2 (line1), LOAD(line2), HALT(line3), dataSize=2(line4),
 #       init=0005(line5), uninit=9999(line6)
 run_test_file "TC-INT-06-hlx" "integration/tc_int_06.hal" 6 "9999"

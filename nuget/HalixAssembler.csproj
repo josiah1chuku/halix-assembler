@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>HalixAssembler</AssemblyName>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>halixAssembler</ToolCommandName>
+    <PackageId>HalixAssembler</PackageId>
+    <Version>1.2.0</Version>
+    <Authors>Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku</Authors>
+    <Company>Avenger Assembler -- CEN5075, FAMU, 2026</Company>
+    <Description>HALIX Assembler v4.0 -- Translates Halix Assembly Language (.hal) to machine code (.hlx). Five-pass assembler supporting all 54 Halix v12 instructions. 77 tests passing.</Description>
+    <PackageProjectUrl>https://github.com/josiah1chuku/halix-assembler</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/josiah1chuku/halix-assembler</RepositoryUrl>
+    <PackageTags>assembler;halix;systems-software;CEN5075;FAMU</PackageTags>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+</Project>

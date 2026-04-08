@@ -1,0 +1,73 @@
+name: Publish Assembler NuGet Package
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install C++ compiler
+        run: sudo apt-get update -qq && sudo apt-get install -y g++
+
+      - name: Build halixAssembler
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -o halixAssembler halixAssembler.cpp
+          ./halixAssembler --version
+
+      - name: Run all 77 tests
+        run: bash tests/run_all_tests.sh
+
+      - name: Copy binary into NuGet project
+        run: |
+          cp halixAssembler nuget/
+          cp halix.opcode   nuget/
+          ls -la nuget/
+
+      - name: Set package version
+        run: |
+          VERSION="1.2.${{ github.run_number }}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" nuget/HalixAssembler.csproj
+          echo "Package version: $VERSION"
+
+      - name: Configure GitHub Packages
+        run: |
+          dotnet nuget remove source GitHub 2>/dev/null || true
+          dotnet nuget add source \
+            "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --name "GitHub" \
+            --username "${{ github.actor }}" \
+            --password "${{ secrets.GITHUB_TOKEN }}" \
+            --store-password-in-clear-text
+
+      - name: Pack NuGet package
+        run: |
+          cd nuget
+          dotnet pack HalixAssembler.csproj \
+            --configuration Release \
+            --output ../nupkg \
+            -p:Version=${{ env.VERSION }}
+          ls -la ../nupkg/
+
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget push "nupkg/*.nupkg" \
+            --source "GitHub" \
+            --api-key "${{ secrets.GITHUB_TOKEN }}" \
+            --skip-duplicate
+          echo "PUBLISHED: HalixAssembler v${{ env.VERSION }}"

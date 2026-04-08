@@ -1,114 +1,133 @@
-# HALIX Assembler
+# HALIX Assembler v1.2.0
+### Avenger Assembler Team — CEN5075 Systems Software Engineering, FAMU
 
-![CI](https://github.com/josiah1chuku/halix-assembler/actions/workflows/ci.yml/badge.svg)
-
-A complete five-pass assembler for the HALIX Assembly Language, implemented in C++17. Translates `.hal` source files into machine code `.hlx` files compatible with the legacy `halix.crun` v1.7 runtime.
+A five-pass assembler for the Halix v12 instruction set, written in C++.  
+Translates Halix assembly language (`.hal`) source files into machine code (`.hlx`).
 
 ---
 
-## Quick Start
+## Team Members
+- Alissa Forde
+- Dunkley
+- Kimieka
+- Kiros
+- Kalab M.
+- Josiah Chuku
 
-### Compile
+---
+
+## Installation (Codio / Linux) — No Compiling Needed
+
+Download the latest release binaries with two commands:
+
 ```bash
-g++ -std=c++17 -o halixAssembler halixAssembler.cpp
+wget https://github.com/josiah1chuku/halix-assembler/releases/download/v1.2.0/halixAssembler
+wget https://github.com/josiah1chuku/halix-assembler/releases/download/v1.2.0/halix.opcode
+chmod +x halixAssembler
 ```
 
-### Assemble a program
+> **Both files must stay in the same directory.** The assembler reads `halix.opcode` at runtime.
+
+---
+
+## Usage
+
 ```bash
-./halixAssembler myprogram.hal
+./halixAssembler yourfile.hal
 ```
 
-### Run all tests
+This produces three output files:
+- `yourfile.hlx` — machine code loaded by the Halix runtime
+- `yourfile.lst` — assembler listing showing source and object code side by side
+- `yourfile.log` — error and warning messages
+
+---
+
+## CLI Options
+
 ```bash
-bash tests/run_all_tests.sh
+./halixAssembler --help       # Show usage instructions
+./halixAssembler --version    # Show version number
+./halixAssembler --man        # Show full manual
 ```
 
 ---
 
-## Output Files
+## Example
 
-| File | Description |
-|---|---|
-| `<n>.hlx` | Machine code — compatible with halix.crun |
-| `<n>.lst` | Assembly listing — source mapped to machine code |
-| `<n>.log` | Error log — "NO errors" on success |
-
----
-
-## .hlx Output Format (Legacy)
-```
-codeSize
-instruction_1
-...
-dataSize
-dataValue_1
-...
+```bash
+./halixAssembler first.hal
+halix.crun first.hlx
 ```
 
-Uninitialised variables are written as `9999`.
+---
+
+## Building from Source (MSYS2 / Linux)
+
+```bash
+git clone https://github.com/josiah1chuku/halix-assembler.git
+cd halix-assembler
+g++ -std=c++17 -Wall -o halixAssembler halixAssembler.cpp
+```
 
 ---
 
-## Assembler Passes
+## Running the Test Suite
 
-| Pass | Description |
-|---|---|
-| Pass 0 | Directive validation (.ALLOC, .BEGIN, .END) |
-| Pass 1 | Data Symbol Table construction |
-| Pass 2a | Mnemonic validation against halix.opcode |
-| Pass 2b | Instruction Label Table construction |
-| Pass 3 | Operand validation |
-| Pass 4 | Machine code generation |
+```bash
+bash run_all_tests.sh
+```
+
+Current status: **77 tests passing**.
 
 ---
 
-## CI/CD Pipeline
+## Features (v1.2.0)
 
-Every push to GitHub automatically:
-1. Spins up a fresh Ubuntu Linux machine
-2. Installs g++ and compiles the assembler
-3. Runs all 36 tests
-4. Assembles a demo program
-
-The badge at the top shows the current pipeline status.
+- Five-pass assembly pipeline (Pass 0 – Pass 4)
+- Supports all 54 Halix v12 instructions loaded from `halix.opcode`
+- `.BLOCK` directive — allocates N consecutive data memory cells
+- CLI flags: `--help`, `--version`, `--man`
+- Unused variable warnings
+- Pointer-style error messages with `^` indicator under offending token
+- Generates `.hlx`, `.lst`, and `.log` output files
+- 77 automated tests across all passes
 
 ---
 
 ## Project Structure
+
 ```
 halix-assembler/
-├── halixAssembler.cpp     # Assembler source code
-├── halix.opcode           # Instruction set configuration
-├── tests/
-│   ├── run_all_tests.sh   # Automated test runner
-│   ├── tc_p0_*.hal        # Pass 0 test cases (6)
-│   ├── tc_p1_*.hal        # Pass 1 test cases (8)
-│   ├── tc_p2a_*.hal       # Pass 2a test cases (6)
-│   ├── tc_p3_*.hal        # Pass 3 test cases (8)
-│   └── tc_p4_*.hal        # Pass 4 test cases (8)
-├── SRS_HALIX_v2.docx
-├── SDD_HALIX_v2.docx
-├── TPD_HALIX_v2.docx
-├── DPD_Halix_v1.docx
-└── MPD_Halix_v1.docx
+├── halixAssembler.cpp   # Entry point (unity build)
+├── halix.opcode         # Instruction config file (required at runtime)
+├── src/
+│   ├── pass0.cpp        # Directive validation
+│   ├── pass1.cpp        # Data symbol table
+│   ├── pass2.cpp        # Mnemonic validation
+│   ├── pass3.cpp        # Operand validation
+│   └── pass4.cpp        # Machine code generation
+├── include/
+│   ├── types.h
+│   ├── context.h
+│   ├── utils.h
+│   ├── logger.h
+│   └── config.h
+├── tests/               # 77 test cases
+└── run_all_tests.sh     # Test runner
 ```
 
 ---
 
-## SDLC Documents
+## Version History
 
-| Document | Version | Description |
-|---|---|---|
-| SRS | v2.0 | 40 functional requirements, 12 non-functional requirements |
-| SDD | v2.0 | Five-pass pipeline architecture, data structures |
-| TPD | v2.0 | 36 automated test cases, all passing, halix.crun verified |
-| DPD | v1.0 | Deployment package, GitHub release process |
-| MPD | v1.0 | Maintenance procedures, versioning, roadmap |
+| Version | Date | Changes |
+|---------|------|---------|
+| v1.0 | March 18, 2026 | Initial release, 36 tests passing |
+| v1.2.0 | April 2026 | .BLOCK directive, CLI flags, pointer errors, 77 tests |
 
 ---
 
-## References
+## Repository
 
-- E. L. Jones, *HALIX COMPUTER version 12 — Instruction Set*
-- E. L. Jones, *The HALIX ASSEMBLER (HASM.csh)*, AnatomyOfAnAssembler.txt
-- E. L. Jones, *halix.crun v1.7*, 2011
+[https://github.com/josiah1chuku/halix-assembler](https://github.com/josiah1chuku/halix-assembler)

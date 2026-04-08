@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>HalixAssembler</id>
+    <version>0.0.0</version>
+    <authors>Alissa Forde, Dunkley, Kimieka, Kiros, Kalab M., Josiah Chuku</authors>
+    <owners>Josiah Chuku</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HALIX Assembler v4.0 -- Avenger Assembler Team, CEN5075, FAMU, 2026.
+Translates Halix Assembly Language (.hal) source files into Halix machine code (.hlx).
+Five-pass assembler supporting all 54 Halix v12 instructions.
+Features: .BLOCK directive, pointer error messages, unused variable warnings,
+--help, --man, --version CLI flags, 77 tests passing.</description>
+    <projectUrl>https://github.com/josiah1chuku/halix-assembler</projectUrl>
+    <tags>assembler halix systems-software compiler CEN5075 FAMU</tags>
+    <packageTypes>
+      <packageType name="tool" />
+    </packageTypes>
+  </metadata>
+
+  <files>
+    <file src="package/tools/*" target="tools" />
+  </files>
+</package>
