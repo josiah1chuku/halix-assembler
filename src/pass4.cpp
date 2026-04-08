@@ -66,7 +66,10 @@ void pass4(const vector<string>& sourceLines, const string& base, const Assemble
         const DataSymbol& ds = entry.second.second;
         if (ds.blockSize > 1) {
             for (int i = 0; i < ds.blockSize; i++)
-                dataVals.push_back(UNINIT_SENTINEL);
+                if (!ds.initValues.empty() && i < (int)ds.initValues.size())
+                    dataVals.push_back(ds.initValues[i]);
+                else
+                    dataVals.push_back(UNINIT_SENTINEL);
         } else {
             dataVals.push_back(ds.hasValue ? ds.value : UNINIT_SENTINEL);
         }
