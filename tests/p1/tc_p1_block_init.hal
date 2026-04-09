@@ -1,7 +1,6 @@
 # Test .BLOCK with initializer list alongside .DATA variables
-.ALLOC 5
+.ALLOC 4
 a   .DATA =7
-X   .BLOCK 2
 Z   .BLOCK =3,=9,=17
 .BEGIN
 LOAD a
