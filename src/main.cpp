@@ -323,7 +323,10 @@ static void printMan() {
 "VERSION HISTORY\n"
 "    v1.0   Initial release -- 36 tests\n"
 "    v1.1   Added .BLOCK directive -- 77 tests\n"
-"    v1.2   Added --help, --man, --version; unused variable warning;\n"
+    "    v1.2   Added --help, --man, --version; unused variable warnings\n"
+    "    v1.3   .BLOCK initializer list; unindexed block warnings\n"
+    "    v1.4   ANSI color output\n"
+    "    v1.5   CodeQL security scanning\n"
 "           pointer error messages; team authors display\n"
 "\n"
 "AUTHORS\n"
@@ -348,7 +351,7 @@ int main(int argc, char* argv[]) {
         string flag = argv[1];
         if (flag == "--help" || flag == "-h") { printHelp(); return 0; }
         if (flag == "--man"  || flag == "-m") { printMan();  return 0; }
-        if (flag == "--version" || flag == "-v") { cout << "HALIX Assembler v1.2.0\n" << "Authors: Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n" << "Team:    Avenger Assembler -- CEN5075, FAMU, 2026\n"; return 0; }
+        if (flag == "--version" || flag == "-v") { cout << "HALIX Assembler v1.5.0\n" << "Authors: Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n" << "Team:    Avenger Assembler -- CEN5075, FAMU, 2026\n"; return 0; }
     }
 
     if (argc < 2) {
