@@ -25,3 +25,13 @@ struct DataSymbol {
     int  blockSize = 1;   // 1 for .DATA, N for .BLOCK N
     std::vector<int> initValues; // values for .BLOCK =v1,=v2,...
 };
+
+// ── ANSI colour codes ─────────────────────────────────────────────────────────
+namespace Color {
+    constexpr const char* RED     = "\033[1;31m";
+    constexpr const char* YELLOW  = "\033[1;33m";
+    constexpr const char* GREEN   = "\033[1;32m";
+    constexpr const char* CYAN    = "\033[1;36m";
+    constexpr const char* BOLD    = "\033[1m";
+    constexpr const char* RESET   = "\033[0m";
+}
