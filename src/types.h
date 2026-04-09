@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 // =============================================================================
 // types.h — Shared types, constants, and POD structs
 // All other modules include this; nothing here depends on anything else.
@@ -22,4 +23,5 @@ struct DataSymbol {
     int  value;
     bool hasValue;
     int  blockSize = 1;   // 1 for .DATA, N for .BLOCK N
+    std::vector<int> initValues; // values for .BLOCK =v1,=v2,...
 };

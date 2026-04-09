@@ -1,0 +1,10 @@
+# Test .BLOCK with initializer list alongside .DATA variables
+.ALLOC 4
+a   .DATA =7
+Z   .BLOCK =3,=9,=17
+.BEGIN
+LOAD a
+LOADA Z
+iLOAD
+HALT
+.END
