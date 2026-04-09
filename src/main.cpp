@@ -323,10 +323,10 @@ static void printMan() {
 "VERSION HISTORY\n"
 "    v1.0   Initial release -- 36 tests\n"
 "    v1.1   Added .BLOCK directive -- 77 tests\n"
-"    v1.2   Added --help, --man, --version; unused variable warnings
-    v1.3   .BLOCK initializer list syntax; unindexed block warnings
-    v1.4   ANSI color output
-    v1.5   CodeQL security scanning\n"
+    "    v1.2   Added --help, --man, --version; unused variable warnings\n"
+    "    v1.3   .BLOCK initializer list; unindexed block warnings\n"
+    "    v1.4   ANSI color output\n"
+    "    v1.5   CodeQL security scanning\n"
 "           pointer error messages; team authors display\n"
 "\n"
 "AUTHORS\n"
