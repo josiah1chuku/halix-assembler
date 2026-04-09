@@ -379,7 +379,7 @@ int main(int argc, char* argv[]) {
          << "Source : " << srcFile << "\n\n";
 
     // ── Pass 0: Directive Validation ──────────────────────────────────────────
-    cout << "Pass 0: Validating directives...\n";
+    cout << Color::CYAN << "Pass 0: Validating directives..." << Color::RESET << "\n";
     pass0(sourceLines, ctx);
 
     if (!ctx.allocFound) {
@@ -390,11 +390,11 @@ int main(int argc, char* argv[]) {
     }
 
     // ── Pass 1: Data Symbol Table ─────────────────────────────────────────────
-    cout << "Pass 1: Building Data Symbol Table...\n";
+    cout << Color::CYAN << "Pass 1: Building Data Symbol Table..." << Color::RESET << "\n";
     pass1(sourceLines, ctx);
 
     // ── Pass 2a: Mnemonic Validation ──────────────────────────────────────────
-    cout << "Pass 2a: Validating instruction mnemonics...\n";
+    cout << Color::CYAN << "Pass 2a: Validating instruction mnemonics..." << Color::RESET << "\n";
     pass2a(sourceLines, ctx);
 
     if (ctx.hadError) {
@@ -404,11 +404,11 @@ int main(int argc, char* argv[]) {
     }
 
     // ── Pass 2b: Instruction Label Symbol Table ────────────────────────────────
-    cout << "Pass 2b: Building Instruction Label Symbol Table...\n";
+    cout << Color::CYAN << "Pass 2b: Building Instruction Label Symbol Table..." << Color::RESET << "\n";
     pass2b(sourceLines, ctx);
 
     // ── Pass 3: Operand Validation ────────────────────────────────────────────
-    cout << "Pass 3: Validating operands...\n";
+    cout << Color::CYAN << "Pass 3: Validating operands..." << Color::RESET << "\n";
     pass3(sourceLines, ctx);
 
     if (ctx.hadError) {
@@ -418,7 +418,7 @@ int main(int argc, char* argv[]) {
     }
 
     // ── Pass 4: Machine Code Generation ──────────────────────────────────────
-    cout << "Pass 4: Generating machine code...\n";
+    cout << Color::CYAN << "Pass 4: Generating machine code..." << Color::RESET << "\n";
     // ── .BLOCK variables never indexed warning ───────────────────────────────
     for (auto& kv : ctx.dataSymbolTable) {
         if (kv.second.blockSize > 1 && !ctx.indexedBlocks.count(kv.first))
@@ -430,7 +430,7 @@ int main(int argc, char* argv[]) {
     // ── Write log and display symbol tables ───────────────────────────────────
     writeLog(base, ctx);
 
-    cout << "\nAssembly successful.\n"
+    cout << Color::GREEN << "\nAssembly successful." << Color::RESET << "\n"
          << "Output : " << base << ".hlx\n"
          << "Listing: " << base << ".lst\n"
          << "Log    : " << base << ".log\n";

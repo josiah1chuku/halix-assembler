@@ -35,16 +35,16 @@ struct AssemblerContext {
     // ── Logging helpers ───────────────────────────────────────────────────────
 
     void logError(int lineNo, const std::string& msg) {
-        std::string entry = "  LINE " + std::to_string(lineNo) + ": ERROR - " + msg;
+        std::string entry = std::string(Color::RED) + "  LINE " + std::to_string(lineNo) + ": ERROR - " + msg + Color::RESET;
         std::cerr << entry << "\n";
         errorLog.push_back(entry);
         hadError = true;
     }
 
     void logWarning(int lineNo, const std::string& msg) {
-        std::string entry = (lineNo > 0)
-            ? "  LINE " + std::to_string(lineNo) + ": WARNING - " + msg
-            : "  WARNING - " + msg;
+        std::string entry = std::string(Color::YELLOW) +
+            ((lineNo > 0) ? "  LINE " + std::to_string(lineNo) + ": WARNING - " + msg : "  WARNING - " + msg) +
+            std::string(Color::RESET);
         std::cerr << entry << "\n";
         warnLog.push_back(entry);
     }
@@ -53,7 +53,7 @@ struct AssemblerContext {
     void logErrorWithPointer(int lineNo, const std::string& msg,
                              const std::string& sourceLine,
                              const std::string& token) {
-        std::string entry = "  LINE " + std::to_string(lineNo) + ": ERROR - " + msg;
+        std::string entry = std::string(Color::RED) + "  LINE " + std::to_string(lineNo) + ": ERROR - " + msg + Color::RESET;
         std::cerr << entry << "\n";
         size_t pos = sourceLine.find(token);
         if (pos != std::string::npos) {
