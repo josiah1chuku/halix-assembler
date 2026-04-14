@@ -78,11 +78,16 @@ g++ -std=c++17 -Wall -o halixAssembler halixAssembler.cpp
 bash run_all_tests.sh
 ```
 
-Current status: **77 tests passing**.
+Current status: **78 tests passing**.
 
 ---
 
 ## Features (v1.2.0)
+Every push to GitHub automatically:
+1. Spins up a fresh Ubuntu Linux machine
+2. Installs g++ and compiles the assembler
+3. Runs all 78 tests
+4. Assembles a demo program
 
 - Five-pass assembly pipeline (Pass 0 – Pass 4)
 - Supports all 54 Halix v12 instructions loaded from `halix.opcode`
@@ -124,7 +129,7 @@ halix-assembler/
 | Version | Date | Changes |
 |---------|------|---------|
 | v1.0 | March 18, 2026 | Initial release, 36 tests passing |
-| v1.2.0 | April 2026 | .BLOCK directive, CLI flags, pointer errors, 77 tests |
+| v1.2.0 | April 2026 | .BLOCK directive, CLI flags, pointer errors, 78 tests |
 
 ---
 
