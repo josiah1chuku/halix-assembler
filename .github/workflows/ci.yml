@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Compile assembler
         run: g++ -std=c++17 -Wall -Wextra -o halixAssembler halixAssembler.cpp
-      - name: Run full test suite (70 tests)
+      - name: Run full test suite (77 tests)
         run: bash tests/run_all_tests.sh
       - name: End-to-end assembly check
         run: |
