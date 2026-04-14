@@ -19,7 +19,7 @@ else
 fi
 
 echo "Compiling assembler..."
-g++ -std=c++17 -O2 -o halixAssembler halixAssembler.cpp
+make
 
 echo "Adding to PATH..."
 INSTALL_DIR=$(pwd)
