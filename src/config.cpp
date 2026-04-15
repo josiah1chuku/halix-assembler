@@ -1,8 +1,7 @@
 // =============================================================================
 // config.cpp — loadConfig implementation
 // Format of each non-comment line in halix.opcode:
-//   MNEMONIC  OPCODE  OPERAND_TYPE
-// where OPERAND_TYPE ∈ { NONE, IMM, LABEL, DATA }
+//   OPCODE #MNEMONIC#
 // =============================================================================
 
 #include "config.h"
@@ -29,30 +28,40 @@ bool loadConfig(const string& configFile, AssemblerContext& ctx) {
     while (std::getline(in, line)) {
         lineNo++;
 
-        // Strip inline comments
-        auto pos = line.find('#');
-        if (pos != string::npos) line = line.substr(0, pos);
-
         std::istringstream ss(line);
-        string mnemonic, opcodeStr, opTypeStr;
-        if (!(ss >> mnemonic >> opcodeStr >> opTypeStr)) continue;
-
         int opcode;
-        if (!parseInt(opcodeStr, opcode)) {
-            cerr << "CONFIG LINE " << lineNo
-                 << ": Invalid opcode for " << mnemonic << "\n";
-            return false;
+        string mnemonicRaw;
+
+        if (!(ss >> opcode >> mnemonicRaw)) continue;
+
+        // Strip # delimiters from #MNEMONIC#
+        if (mnemonicRaw.size() >= 2 &&
+            mnemonicRaw.front() == '#' &&
+            mnemonicRaw.back() == '#') {
+            mnemonicRaw = mnemonicRaw.substr(1, mnemonicRaw.size() - 2);
+        } else {
+            continue;
         }
 
+        string mnemonic = mnemonicRaw;
+
+        // Derive operand type from opcode
         OperandType opType;
-        if      (opTypeStr == "NONE")  opType = OP_NONE;
-        else if (opTypeStr == "IMM")   opType = OP_IMM;
-        else if (opTypeStr == "LABEL") opType = OP_LABEL;
-        else if (opTypeStr == "DATA")  opType = OP_DATA;
-        else {
-            cerr << "CONFIG LINE " << lineNo
-                 << ": Unknown operand type '" << opTypeStr << "'\n";
-            return false;
+        if (opcode == 1  || opcode == 2  || opcode == 3  ||
+            opcode == 4  || opcode == 5  || opcode == 6  ||
+            opcode == 7  || opcode == 8  || opcode == 9  ||
+            opcode == 15 || opcode == 18 || opcode == 19 ||
+            opcode == 20 || opcode == 21 || opcode == 22 ||
+            opcode == 23 || opcode == 30 || opcode == 35 ||
+            opcode == 58 || opcode == 59) {
+            opType = OP_DATA;
+        } else if (opcode >= 24 && opcode <= 29) {
+            opType = OP_IMM;
+        } else if (opcode == 10 || opcode == 11 ||
+                   opcode == 12 || opcode == 32) {
+            opType = OP_LABEL;
+        } else {
+            opType = OP_NONE;
         }
 
         ctx.instructionTable[mnemonic] = {opcode, opType};
