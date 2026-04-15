@@ -1,0 +1,76 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: countBy5-crawfordJ558.hal
+# Author:       crawfordJ558 Justice Crawford
+# Date:         10/9/2025
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# 2. (countBy5.hal )   9  pts
+#    int Limit, Start=5, k ;
+#    cin >> Limit;
+#    cout << Limit;
+#    for (k=Start; k<=Limit, k+=5)
+#    {
+#        cout << k;
+#    }
+#
+#   NOTE: the for loop is equivalent to this code using a while loop.
+#
+#          k=Start;
+#          while ( k<=Limit)
+#          {
+#              cout << k;t
+#              k += 5;
+#          }
+#
+# countBy5.hal Test cases:  <== means input; ==> means output. (9 pts)   
+# <==0012  ==>0012 ==>0005  ==>0010  
+# <==0003  ==>0003  
+# <==0025  ==>0025  ==>0005 ==>0010  ==>0015 ==>0020  ==>0025   
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+		.ALLOC	3
+Limit	.DATA
+Start	.DATA =5
+k       .DATA
+
+	.BEGIN
+
+    #    cin >> Limit;
+    #    cout << Limit;
+    #    k=Start;
+
+    READ Limit
+    WRITE Limit
+    LOAD Start
+    STORE k
+
+#          while ( k<=Limit)
+#          {
+#              cout << k;t
+#              k += 5;
+#          }
+
+
+WHILE:  LOAD k
+        CLE Limit
+        BRF ENDWHILE
+        WRITE k
+        LOAD k
+        ADDI =5
+        STORE k
+        BRANCH WHILE
+
+ENDWHILE: HALT
+
+    HALT
+
+
+	.END

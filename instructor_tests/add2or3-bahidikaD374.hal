@@ -1,0 +1,69 @@
+# ------------------------------------------
+# Halix Program
+# Program Name: add2or3-bahidikaD374.hal
+# Author:       bahidikaD374 David Jean-Charles Bahidika 
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ---------------------------------------
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#   sum = 0;
+#   cin >> k;
+# if (k == 2)
+#{
+#cin >> a >> b; sum = a + b; cout << k << sum;
+#}
+#else if (k == 3)
+#{
+#cin >> a >> b >> c; sum = a + b + c; cout << k << sum;
+#}
+#else
+#cout << k << sum;
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+                .ALLOC 7
+a           .DATA 
+b           .DATA 
+c           .DATA
+k           .DATA
+sum         .DATA =0
+c2          .DATA =2
+c3          .DATA =3
+
+
+            .BEGIN
+            READ    k
+
+         
+IF:         LOAD    c2
+            CEQ    k
+            BRF     ELSE
+            READ    a
+            READ    b
+            LOAD    b
+            ADD     a 
+            STORE   sum 
+            WRITE   k
+            WRITE   sum
+            BRANCH  ENDIF
+
+ELSEIF:     LOAD    k
+            CEQ     c3
+            BRF     ELSE
+            READ    a 
+            READ    b 
+            READ    c 
+            LOAD    a 
+            ADD     b 
+            ADD     c 
+            WRITE   k
+            WRITE   sum 
+            BRANCH  ENDIF
+
+ELSE:       WRITE   k
+            WRITE   sum
+ENDIF:      HALT
+            .END

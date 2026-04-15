@@ -1,0 +1,48 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: one-parrisD.hal
+# Author:       parrisD951 Dorien Parris
+# Date:         
+# Purpose:      using a if statement to
+#                compare two numbers.
+# ----------------------------------------
+# ________________________________________
+#   int x=5, y;
+#    cin >> y;
+#    if ( y > x)
+#    {
+#         cout << y;
+#         x = x + y;
+#    }
+#    cout << x;
+# __________________________________________
+
+  .ALLOC  3
+
+  c5  .DATA =5
+  y   .DATA
+  x   .DATA
+
+      .BEGIN 
+      READ  y 
+
+  IF: LOAD  y
+    CGT   c5
+    BRF   ENDIF
+
+    WRITE y
+
+    LOAD c5
+    ADD y
+    STORE x
+    WRITE x
+
+  ENDIF:  WRITE c5
+
+
+
+    
+    HALT
+
+    .END

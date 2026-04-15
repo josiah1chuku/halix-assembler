@@ -1,0 +1,48 @@
+# ------------------------------------------
+# Halix Program
+# Program Name: log2-bahidikaD374.hal
+# Author:       bahidikaD374 David Jean-Charles Bahidika 
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ---------------------------------------
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#   int x=5, ans=0;
+#    cin >> x;
+#    while ( x > 1)
+#    {
+#         x/=2;
+#         cout << x;
+          ans++;
+#    }
+#    cout << ans;
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+                .ALLOC 3
+x           .DATA =5
+ans         .DATA =0
+c1          .DATA =1
+
+
+            .BEGIN
+            READ    x
+
+WHILE:      LOAD    x
+            CGT     c1
+            BRF ENDWHILE
+            LOAD    x
+            DIVI     =2
+            STORE   x
+            WRITE   x
+            LOAD    ans
+            INCR 
+            STORE   ans
+            BRANCH  WHILE
+
+ENDWHILE:   WRITE   ans
+            HALT
+
+            .END

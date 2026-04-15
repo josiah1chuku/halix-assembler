@@ -1,0 +1,19 @@
+.ALLOC 4
+total   .DATA =0
+scores  .BLOCK =85,=90,=78
+.BEGIN
+        LOADA  scores
+        iCLR
+        iLOAD
+        STORE  total
+        iINCR
+        iLOAD
+        ADD    total
+        STORE  total
+        iINCR
+        iLOAD
+        ADD    total
+        STORE  total
+        WRITE  total
+        HALT
+.END

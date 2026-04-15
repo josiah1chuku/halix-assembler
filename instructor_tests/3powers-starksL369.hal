@@ -1,0 +1,61 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: 3powers.hal
+# Author:       starksL369 London Starks 
+# Date:         due 9/23/25
+# Purpose:       Reads a number N and computes
+#               its square (N^2) and cube (N^3).
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+# int N, X, square, cube;
+#   cin >> N;
+#   cout << N;
+#
+#   X = N;
+#   cout << X;
+#
+#   square = N * N;
+#   cout << square;
+#
+#   cube = square * N;
+#   cout << cube;
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+        .ALLOC 4
+N       .DATA   0
+X       .DATA   0
+square  .DATA   0
+cube    .DATA   0
+
+        .BEGIN
+                # Read N
+                # Print N
+        READ    N
+        LOAD    N
+        STORE   X
+        WRITE   X
+
+                # square = N * N
+                # Print square
+        LOAD    N
+        MULT    N
+        STORE   square
+        WRITE   square
+
+                # cube = square * N
+                # Print cube
+        LOAD    square
+        MULT    N
+        STORE   cube
+        WRITE   cube
+
+        HALT
+
+	.END

@@ -1,0 +1,126 @@
+	.ALLOC 8
+Sum	.DATA  =0
+A	.DATA  =12 
+pv_check .DATA =0
+z .DATA =0
+
+	.BEGIN
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    iINCR
+    LOADA A 
+    iREAD
+    iLOAD
+    STORE pv_check
+    BSUB CheckPositive
+    ADD Sum
+    STORE Sum
+    WRITE Sum
+    HALT
+CheckPositive: NOOP
+    IF: LOAD pv_check
+        CGE z
+        BRF ELSE
+        LOAD pv_check
+        BRANCH ENDIF
+    ELSE: LOAD z
+        BRANCH ENDIF
+    ENDIF: RET
+    .END
+

@@ -1,0 +1,143 @@
+# #####################################################################################################
+# Dorien Parris parrisD951.hal
+#
+# file name : rectangle-parrisD951.hal
+#
+# Assign ID: parrisD951.hal
+#
+# Purpose: Find the AREA  and PERIMETER of a RECTANGLE
+#
+# Due: 10/29/2025
+#
+#
+# #####################################################################################################
+#        void ShowNum(int num)
+#        {
+#            cout << num;
+#        }
+#
+#        int Area(int L, int W)
+#        {
+#            return L * W
+#        }
+#
+#        int Perimeter(int Len, int Wid)
+#        {
+#            return 2*Len + 2*Wid;
+#        }
+#
+#        int main()
+#        {
+#        int L, W, perim, area
+#        cin >> L >> W;
+#        ShowNum(L);
+#        ShowNum(W);
+#
+#        area = Area(L, W);
+#        ShowNum(area)
+#
+#        perim = Perimeter(L,W);
+#        ShowNum(perim)
+#        }
+# #######################################################################################
+
+
+
+        .ALLOC 10
+
+# #####################
+# input values
+num         .DATA
+L           .DATA 
+W           .DATA 
+# --------------------
+
+# ####################
+# perameter values
+PV_NUM      .DATA
+
+PV_L        .DATA 
+PV_W        .DATA
+
+PV_LEN      .DATA
+PV_WID      .DATA
+# --------------------
+
+# ###################
+# constant
+c2          .DATA =2
+# --------------------
+
+# ###################
+# Results
+perim       .DATA 
+area        .DATA
+# -------------------
+
+
+
+
+        .BEGIN
+
+
+# void ShowNum(int num):
+        READ    num
+
+        LOAD    num 
+        STORE   PV_NUM
+        BSUB    SHOWNUM
+    WRITE   num
+
+
+# int Area(int L, int W):
+        READ    L 
+        READ    W 
+
+        LOAD    L  
+        STORE   PV_L
+        LOAD    W   
+        STORE   PV_W 
+    BSUB    AREA
+        STORE   area 
+        WRITE   area 
+
+
+
+# int Perimeter(int Len, int Wid):
+    
+#        READ    L 
+#        READ    W
+        
+        LOAD    L 
+        MULT    c2 
+        STORE   PV_LEN
+
+        LOAD    W 
+        MULT    c2
+        STORE   PV_WID
+
+    BSUB    PERIMETER
+        STORE   perim
+        WRITE   perim
+
+HALT
+
+
+SHOWNUM:    WRITE PV_NUM
+            RET 
+
+
+
+AREA:   LOAD    PV_L 
+        MULT    PV_W 
+        RET
+
+
+
+PERIMETER:  LOAD    PV_LEN
+            ADD     PV_WID
+            RET
+
+
+
+        .END

@@ -1,0 +1,87 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: oddSeriesSums-crawfordJ558
+# Author:       crawfordJ558 Justice Crawford
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+#   Read Num 
+#   Print Num 
+#   Ans = Num + 20
+#   Print Ans
+#
+#   Example: input 44 produces   output 64
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+		.ALLOC	7
+N   .DATA
+K   .DATA
+j   .DATA
+Sum .DATA
+c0  .DATA =0
+c1  .DATA =1
+c2  .DATA =2
+
+        .BEGIN
+
+
+        READ N
+
+    # for (K=1; K<= N; K++)
+    # Sum = 0
+
+
+        LOAD c1
+        STORE K
+LOOP1:  LOAD K
+        CLE N
+        BRF ENDLOOP1
+        LOAD c0
+        STORE Sum
+
+
+    # for (j=1; j<=K; j+=2)
+
+        LOAD c1
+        STORE j
+LOOP2:  LOAD j
+        CLE K
+        BRF ENDLOOP2
+
+
+    # Sum += j
+    # Print Sum
+
+
+        LOAD Sum
+        ADD j
+        STORE Sum
+        WRITE Sum
+
+        LOAD j
+        ADD c2
+        STORE j
+        BRANCH LOOP2
+
+
+ENDLOOP2: NOOP
+
+        LOAD K
+        ADD c1
+        STORE K
+        BRANCH LOOP1
+
+ENDLOOP1: NOOP
+
+    HALT
+
+   .END

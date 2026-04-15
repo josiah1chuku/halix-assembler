@@ -1,0 +1,43 @@
+#   int a, b=4, c=8, d;
+#    cin >> a;
+#    b = a * b;
+#    cout << b;
+#    if ( b > 12)
+#    {
+#        d = b - 12;
+#        cout << d;
+#    }
+#    if ( b < 12)
+#    {
+#        a = b + 12;
+#        cout << a;
+#    }              
+
+             .ALLOC 5
+    a .DATA
+    b .DATA =4
+    c .DATA =8
+    d .DATA
+    e .DATA =12
+
+            .BEGIN
+            READ a
+            LOAD a 
+            MULT b
+            STORE b
+            WRITE b
+            LOAD b
+            CGT e
+            BRF NEXT
+            LOAD b
+            SUB e
+            STORE d
+            WRITE d
+NEXT:       LOAD b
+            CLT e
+            BRF OVER
+            ADD e
+            STORE a
+            WRITE a
+OVER:       HALT
+            .END

@@ -1,0 +1,83 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: positiveSum.hal
+# Author:       medacierC898 Carla Medacier
+# Date:         2025-11-15
+# ----------------------------------------
+
+# --------------------------------------------------------------
+# Purpose:  DEMONSTRATE use of array-based instructions. 
+# --------------------------------------------------------------
+
+
+#=============== beginPseudo-code =================
+#   Read 12 values into array
+#    2. Sum all the positive values
+#    3. Display the positive sum.
+#
+# int sum = 0;
+# int i;
+# int k = 12;
+# 
+#
+#=============== end Pseudo-code A ================
+
+        .ALLOC 20
+sum .DATA   =0
+k .DATA     =12
+zero .DATA  =0
+i .DATA
+A .DATA
+
+        .BEGIN
+
+        LOADA A 
+        iCLR
+        CLEAR 
+        STORE i 
+
+READLOOP:   LOAD i
+            CLT k
+            BRF ENDREAD
+
+            iREAD 
+            iINCR 
+
+            LOAD i 
+            INCR 
+            STORE i 
+
+            BRANCH READLOOP
+
+ENDREAD:    NOOP
+
+            LOADA A 
+            iCLR 
+            CLEAR 
+            STORE i 
+
+SUMLOOP:    LOAD i 
+            CLT k 
+            BRF ENDLOOP 
+
+            iLOAD 
+            CGT zero 
+            BRF NOSUM 
+            
+            iLOAD 
+            ADD sum 
+            STORE sum 
+
+NOSUM:      iINCR 
+            LOAD i 
+            INCR 
+            STORE i 
+
+            BRANCH SUMLOOP 
+
+ENDLOOP:    WRITE sum 
+            HALT 
+            .END
+
+

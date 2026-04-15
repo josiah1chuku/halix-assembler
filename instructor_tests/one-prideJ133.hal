@@ -1,0 +1,53 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: one-prideJ133.hal
+# Author:       prideJ133 Jalen Pride 
+# Date:         9/28/2025
+# Purpose:      Using the Halix assembler language on the previous program.
+#               
+# ------------------------------------------
+#
+# ------------------------------------------------------
+# pseudocode
+#  int x=5, y;
+#    cin >> y;
+#    if ( y > x)
+#    {
+#         cout << y;
+#         x = x + y;
+#    }
+#    cout << x;
+#  one.hal  Test cases: (<== means input; ==> means output).     
+#  <==0003  ==>0005  (2 pts)
+#  <==0011  ==>0011  x=16  ==>0016 (2 pts)
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+
+.ALLOC 2
+x   .DATA   =5
+y   .DATA     
+    .BEGIN
+
+        #    cin >> y;
+        READ    y
+
+        #    if ( y > x)
+        #    {
+        #         cout << y;
+        #         x = x + y;
+        #    }
+
+IF:         CGT     y
+            BRF     ENDIF     
+            WRITE   y
+            LOAD    y
+            ADD     x
+            STORE   x
+
+            #    cout << x;
+ENDIF:      WRITE   x
+
+            HALT
+    .END

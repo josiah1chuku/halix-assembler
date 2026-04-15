@@ -1,0 +1,6 @@
+.ALLOC 2
+x  .DATA =5
+.BEGIN
+        LOAD  y
+        HALT
+.END

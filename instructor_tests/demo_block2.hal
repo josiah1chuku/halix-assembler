@@ -1,0 +1,10 @@
+.ALLOC 4
+total   .DATA =0
+scores  .BLOCK =85,=90,=78
+.BEGIN
+        LOADA  scores
+        iLOAD
+        STORE  total
+        WRITE  total
+        HALT
+.END

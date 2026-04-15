@@ -1,0 +1,17 @@
+        .ALLOC 3
+num     .DATA 
+count   .DATA =0
+five    .DATA =5
+        .BEGIN
+DO:     READ num
+        LOAD count
+        ADDI =1
+        STORE count
+
+        LOAD num
+        CGT five
+        BRF DO
+        WRITE num
+        WRITE count
+        HALT
+        .END

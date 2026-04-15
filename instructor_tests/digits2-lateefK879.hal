@@ -1,0 +1,51 @@
+# ----------------------------------------------------------
+# File name:	digits2.hal
+# Assign ID:	DEMO
+# Purpose:		Demonstrate digits2 program using HAL/HASM.
+# Author:		lateefK879 Kazuri Lateef
+
+
+# pseudocode
+
+#   int c10=10, num, ones, tens, digitSum;
+
+#   cin >> num;     // 73
+#   cout << num;
+
+#   ones = num % c10;  // ==> 3
+#   cout << ones;
+
+#   tens = num / c10;   // ==> 7
+#   cout << tens;
+
+#   digitSum = ones + tens;
+#   cout << digitSum;
+
+===========================================================
+        .ALLOC 5
+num .DATA
+c10 .DATA =10
+ones .DATA
+tens .DATA
+digitSum .DATA
+
+    .BEGIN
+
+            
+    READ num
+    WRITE num
+
+            
+
+    LOAD num
+    MODI =10
+    STORE tens
+    WRITE tens
+
+            
+    LOAD ones
+    ADD tens
+    STORE digitSum
+    WRITE digitSum
+    HALT
+    .END

@@ -1,0 +1,96 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: add2or3-crawfordJ558.hal
+# Author:       crawfordJ558 Justice Crawford 
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+#   Read Num 
+#   Print Num 
+#   Ans = Num + 20
+#   Print Ans
+#
+#   Example: input 44 produces   output 64
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+		.ALLOC	7
+a   .DATA
+b   .DATA
+c   .DATA
+k   .DATA
+sum .DATA =0
+c2  .DATA =2
+c3  .DATA =3
+
+        .BEGIN
+
+    # sum = 0;
+    # cin >> k;
+
+
+        READ k
+
+    # if (k == 2)
+    # {
+    # cin >> a >> b; sum = a + b; cout << k << sum;
+    # }
+
+IF:     LOAD k
+        CEQ c2
+        BRF IF2
+        READ a
+        READ b
+        LOAD a
+        ADD b
+        STORE sum
+        WRITE k
+        WRITE sum
+        BRANCH ENDIF
+
+
+
+    # else if (k == 3)
+    # {
+    # cin >> a >> b >> c; sum = a + b + c; cout << k << sum;
+    # }
+
+
+IF2:    LOAD k
+        CEQ c3
+        BRF ELSE
+        READ a
+        READ b
+        READ c
+        LOAD a
+        ADD b
+        ADD c
+        STORE sum
+        WRITE k
+        WRITE sum
+        BRANCH ENDIF
+
+
+
+
+    # else
+    # cout << k << sum;
+
+
+ELSE:   WRITE k
+        WRITE sum
+
+
+ENDIF: HALT
+
+    HALT
+
+   .END

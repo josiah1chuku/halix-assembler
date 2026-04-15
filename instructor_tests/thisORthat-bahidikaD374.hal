@@ -1,0 +1,55 @@
+# ------------------------------------------
+# Halix Program
+# Program Name: thisORthat-bahidikaD374.hal
+# Author:       bahidikaD374 David Jean-Charles Bahidika 
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ---------------------------------------
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#   int first,second,ans;
+#    cin >> first>>second;
+#    if ( first>=second)
+#    {
+#         cout<<first;
+#         ans =first * second;
+#    }
+#    else
+#    {
+#        cout<<second
+#        ans=second+first; 
+#   }
+#   cout<<ans
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+                .ALLOC 3
+first           .DATA 
+second          .DATA 
+ans             .DATA 
+
+
+            .BEGIN
+            READ    first
+            READ    second
+
+IF:         LOAD    first
+            CGE     second
+            BRF     ELSE
+            WRITE   first
+            LOAD    first
+            MULT    second
+            STORE   ans
+            BRANCH  ENDIF
+
+ELSE:       WRITE   second
+            LOAD    second
+            ADD     first
+            STORE   ans
+
+ENDIF:      WRITE   ans
+            HALT
+
+            .END

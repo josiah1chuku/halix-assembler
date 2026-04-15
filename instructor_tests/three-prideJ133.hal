@@ -1,0 +1,105 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: three-prideJ133.hal
+# Author:       prideJ133 Jalen Pride 
+# Date:         9/28/2025
+# Purpose:      Using the Halix assembler language on the previous program.
+#               
+# ------------------------------------------
+#
+# ------------------------------------------------------
+# pseudocode   
+#    int p, q, r;
+#    cin >> p >> q       
+#    if ( p > q)          
+#    {     
+#        r = p - q;
+#        cout << r;
+#    }     
+#    if ( p+q > 20 )     
+#    {
+#        r = 2*p + q;
+#        cout << r;
+#    }
+#    if ( p % 7 > 3)   
+#    {                  
+#         p = p + 8;
+#         cout << p;
+#    }
+#  three.hal Test cases: <== means input; ==> means output.  (10 pts)   
+#  <==0011 <==0003  r=8  ==>0008 (3 pts)   p%7=4  p=19  ==>0019 (3 pts)
+#  <==0007  <==0015   r=29  ==>0029  (4 pts )
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+
+.ALLOC 7
+p   .DATA   
+q   .DATA
+r   .DATA
+PQ  .DATA
+RE  .DATA
+c20 .DATA   =20
+c3  .DATA   =3
+    .BEGIN
+
+    #    cin >> p >> q
+    READ    p
+    READ    q
+            
+    #   PQ = p + q
+     LOAD    p
+     ADD     q
+     STORE   PQ
+
+   #   RE = p % 7
+     LOAD   p
+     MODI   =7
+     STORE  RE
+
+    #    if ( p > q)          
+    #    {     
+    #        r = p - q;
+    #        cout << r;
+    #    }
+            
+    IF:     LOAD    p
+            CGT     q 
+            BRF     IF2
+            LOAD    p
+            SUB     q
+            STORE   r
+            WRITE   r
+
+    #    if ( p+q > 20 )     
+    #    {
+    #        r = 2*p + q;
+    #        cout << r;
+    #    }
+          
+    IF2:    LOAD    PQ
+            CGT     c20
+            BRF     IF3
+            LOAD    p
+            MULTI   =2
+            ADD     q
+            STORE   r
+            WRITE   r
+
+    #    if ( p % 7 > 3)   
+    #    {                  
+    #         p = p + 8;
+    #         cout << p;
+    #    }  
+    IF3:    LOAD    RE
+            CGT     c3
+            BRF     ENDIF3
+            LOAD    p
+            ADDI    =8
+            STORE   p
+            WRITE   p
+    ENDIF3: HALT
+
+
+    .END

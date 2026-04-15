@@ -1,0 +1,73 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: three.hal
+# Author:       ramjattanJ381 Jonathan Ramjattan
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode:
+# int p, q, r;
+#   cin >> p >> q       
+#   if ( p > q)          
+#   {     
+#       r = p - q;
+#       cout << r;
+#   }     
+#   if ( p+q > 20 )     
+#  {
+#       r = 2*p + q;
+#       cout << r;
+#   }
+#   if ( p % 7 > 3)   
+#   {                  
+#        p = p + 8;
+#        cout << p;
+#   }
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+		.ALLOC 4
+Num1 .DATA
+Num2 .DATA
+Num3 .DATA
+c20  .DATA  =20
+c3   .DATA  =3
+
+	.BEGIN
+    READ Num1
+    READ Num2
+
+Compare1: LOAD Num1
+         CGT Num2
+         BRF ENDC1
+         LOAD Num1
+         SUB  Num2
+         STORE Num3
+         WRITE Num3
+ENDC1:   NOOP #had to use so I dont get the Line: Subscript out of Range Error
+
+Compare2: LOAD Num1
+          ADD  Num2
+          CGT c20
+          BRF  ENDC2
+          LOAD Num1
+          MULTI =2
+          ADD Num2
+          STORE Num3
+          WRITE Num3
+ENDC2:    NOOP  #had to use so I dont get the Line: Subscript out of Range Error
+
+Compare3: LOAD Num1
+          MODI =7
+          CGT c3
+          BRF ENDC3
+          LOAD Num1
+          ADDI =8
+          STORE Num1
+          WRITE Num1
+ ENDC3: HALT
+	.END

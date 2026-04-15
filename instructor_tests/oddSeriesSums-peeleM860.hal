@@ -1,0 +1,39 @@
+                .ALLOC 7
+N               .DATA
+K               .DATA 
+j               .DATA 
+sum             .DATA
+c0              .DATA =0
+c1              .DATA =1
+c2              .DATA =2
+                .BEGIN 
+            READ N
+            LOAD c1
+            STORE K
+            LOAD c1
+            STORE j
+FOR:        LOAD K 
+            CLE N 
+            BRF ENDFOR
+            LOAD K
+            INCR
+            STORE K
+            LOAD c0
+            STORE sum
+FOR2:       LOAD j 
+            CLE K 
+            BRF ENDFOR2
+            LOAD j
+            ADDI =2
+            STORE j
+            LOAD sum 
+            ADD j 
+            STORE sum 
+            WRITE sum 
+            BRANCH FOR 
+ENDFOR2:    BRANCH FOR
+ENDFOR:     HALT
+                .END
+
+
+

@@ -1,0 +1,80 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: two.hal
+# Author:       starksL369 London Starks 
+# Date:         due 10/1/25
+# Purpose:      Implements ALP2 Problem 2
+# ----------------------------------------
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#2. (two.hal)  6 pts
+#
+#    int a, b=4, c=8, d;
+#    cin >> a;
+#    b = a * b;
+#   WRITE << b;
+#
+#    IF ( b > 12)
+#    {
+#        d = b - 12;
+#        cout << d;
+#    }
+#
+#    IF ( b < 12)
+#    {
+#        a = b + 12;
+#        cout << a;
+#    }
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+
+        .ALLOC 8
+A       .DATA
+B       .DATA   =4
+C       .DATA   =8
+D       .DATA
+TEMP    .DATA
+C12     .DATA   =12
+
+        .BEGIN
+        # cin >> a;
+        READ    A
+
+        # b = a * b;
+        LOAD    A
+        MUL     B
+        STORE   B
+
+        # cout << b;
+        WRITE   B
+
+        # if (b > 12)
+        LOAD    B
+        CGT     C12
+        BRF     L1
+            # d = b - 12;
+            LOAD    B
+            SUB     C12
+            STORE   D
+            # cout << d;
+            WRITE   D
+L1      NOP    # end of first IF
+
+        # if (b < 12)
+        LOAD    B
+        CLT     C12
+        BRF     L2
+            # a = b + 12;
+            LOAD    B
+            ADD     C12
+            STORE   A
+            # cout << a;
+            WRITE   A
+L2      NOP   # end of second IF
+
+        HALT
+        .END

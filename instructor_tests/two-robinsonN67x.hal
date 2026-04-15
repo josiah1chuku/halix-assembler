@@ -1,0 +1,69 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: two-robinsonN672.hal
+# Author:       robinsonN672 Nia Robinson 
+# Date:         
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program with 2 if statements
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+#   int a, b=4, c=8, d;
+#    cin >> a;
+#    b = a * b;
+#    cout << b;
+#
+#    if ( b > 12)
+#    {
+#        d = b - 12;
+#        cout << d;
+#    }
+#
+#    if ( b < 12)
+#    {
+#        a = b + 12;
+#        cout << a;
+#    }
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+		.ALLOC	5
+a	.DATA 
+b	.DATA =4
+c   .DATA 8
+d   .DATA
+e12 .DATA =12
+
+	.BEGIN
+               #Read a 
+        READ a     
+
+               #   b = a * b
+        LAOD a
+        MULT b
+        STORE b
+        WRITE b 
+
+               # b > 12
+        LOAD b
+        CGT e12
+IF:     BRF ENDIF2
+        LOAD b 
+        SUB e12
+        STORE d
+ENDIF:  WRITE d 
+        HALT
+
+               # another If statement 
+IF2:    LOAD b
+        ADD e12
+        STORE a
+ENDIF2: WRITE a
+
+        HALT 
+	    .END

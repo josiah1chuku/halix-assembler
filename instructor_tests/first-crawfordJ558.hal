@@ -1,0 +1,29 @@
+# ----------------------------------------------------------
+# File name:	first.hal
+# Assign ID:	DEMO
+# Purpose:		Demonstrate FIRST program using HAL/HASM.
+# Author:		teacherK123 Dr. Jones
+# ----------------------------------------------------------
+
+# ==========================================================
+# PSEUDO-CODE:
+#		int a=3, b=4, c, d;
+#		cin >> c;
+#		d = c * a;
+#		cout << d;
+# ==========================================================
+
+	.ALLOC 4
+a .DATA =3
+b .DATA =4
+c .DATA
+d .DATA
+
+		.BEGIN
+READ c
+LOAD c
+MULT a
+STORE d
+WRITE d
+HALT
+.END

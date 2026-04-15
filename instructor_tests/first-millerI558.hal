@@ -1,0 +1,76 @@
+# ----------------------------------------------------------
+# File name:	first.hal
+# Assign ID:	DEMO
+# Purpose:		Demonstrate FIRST program using HAL/HASM.
+# Author:		teacherK123 Dr. Jones
+# ----------------------------------------------------------
+
+# ==========================================================
+# PSEUDO-CODE:
+#		int a=3, b=4, c, d;
+#		cin >> c;
+#		d = c * a;
+#		cout << d;
+# ==========================================================
+
+		.ALLOC	5
+a .DATA =3
+b .DATA =4
+c .DATA
+d .DATA
+
+
+	.BEGIN
+	READ c
+	LOAD a
+	MULT c
+	STORE d
+	WRITE d
+	HALT
+
+	.END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ============ FORMATTING  =================
+# Each HASM line is ether a
+#    - comment 
+#    - HASM DIRECTIVE  (begins with period)
+# 		.ALLOC #    	// Allocates # DM cells.
+#      var	.DATA       	// Reserves a cell for variable.  
+#      var	.DATA  =xx	// Reserves and initializes value for variable.
+#           .BEGIN          // Marks start of instructions.
+# 				.END		// Marks end of instructions. Should be
+#							// PRECEDED by HALT instruction.
+
+#               INSTR           // Instruction without operand.
+#               INSTR   operand // Instruction with operand.
+#    label:     INSTR           // Labeled instruction (HASM assigns address 
+#                               // to the label). 
+#    label:	INSTR  operand  // Labeled instruction with operand.
+# ----------------------------------------------------------------------
+# HASM instructions consist of THREE fields (columns)
+#
+#   NAME	INSTR	OPERAND
+#		INSTR   OPERAND
+#		INSTR
+#
+# ***** USE TABS TO ALIGN COLUMNS
+#

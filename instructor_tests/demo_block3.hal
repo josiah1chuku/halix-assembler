@@ -1,0 +1,7 @@
+.ALLOC 3
+scores  .BLOCK =85,=90,=78
+.BEGIN
+        LOAD   scores
+        WRITE  scores
+        HALT
+.END

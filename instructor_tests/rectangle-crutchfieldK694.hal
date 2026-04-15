@@ -1,0 +1,118 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: rectangle.hal
+# Author:       crutchfieldK694 Kenneth Crutchfield 
+# Date:         10-29-2025
+# Purpose:      Demonstrate a well-formed HAL program with subroutines.
+# ----------------------------------------
+
+# PSEUDO-CODE  ================================
+#    void ShowNum(int num)
+#   {
+#    cout << num;
+#   }
+#
+# int Area(int L, int W)
+#   {
+#    return L * W
+#   }
+#
+# int Perimeter(int Len, int Wid)
+#   {
+#    return 2*Len + 2*Wid;
+#   }
+#
+# int main()
+#   {
+#   int L, W, perim, area
+#   cin >> L >> W;
+#   ShowNum(L);
+#   ShowNum(W);
+#
+#   area = Area(L, W);
+#   ShowNum(area)
+#
+#   perim = Perimeter(L,W);
+#   ShowNum(perim)
+#   }
+#           
+# END PSEUDO-CODE ============================
+
+
+  .ALLOC 10
+L       .DATA
+W       .DATA
+perim   .DATA
+area    .DATA
+c2      .DATA =2
+                # ShowNum
+pv_num  .DATA
+                # Area
+pv_L    .DATA
+pv_W    .DATA
+                # Perimeter
+pv_Len  .DATA
+pv_Wid  .DATA
+
+            .BEGIN
+
+        # reading length and width
+            READ    L
+            READ    W      
+           
+        # ShowNum(l)
+            LOAD L
+            STORE pv_num
+            BSUB ShowNum
+
+        # ShowNum(w)
+            LOAD W
+            STORE pv_num
+            BSUB ShowNum
+
+        # area = Area(L, W);
+        # ShowNum(area)
+            LOAD L
+            STORE pv_L
+            LOAD W
+            STORE pv_W
+            BSUB Area
+            STORE area
+           
+            LOAD area
+            STORE pv_num
+            BSUB ShowNum
+
+        # perim = Perimeter(L,W);
+        # ShowNum(perim)
+            LOAD L
+            STORE pv_Len
+            LOAD W
+            STORE pv_Wid
+            BSUB Perimeter
+            STORE perim
+
+            LOAD perim
+            STORE pv_num
+            BSUB ShowNum
+
+
+           
+            HALT
+ShowNum:    WRITE pv_num
+
+Area:       LOAD pv_L
+            MULT pv_W
+            RET
+
+Perimeter:  LOAD pv_Len
+            MULT c2
+            STORE pv_Len
+            LOAD pv_Wid
+            MULT c2
+            STORE pv_Wid
+            LOAD pv_Len
+            ADD pv_Wid
+            RET
+            .END

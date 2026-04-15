@@ -1,0 +1,78 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: addSeriesSum.hal
+# Author:       starksL369 London Starks 
+# Date:         due 10/27/25
+# Purpose:      Write the 2nd Halix Assembly Program 
+#               that involves decisions and looping. 
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#
+# sum = 0; 
+# cin >> k; 
+# if (k == 2)
+# {
+#   cin >> a >> b; sum = a + b; cout << k << sum;
+# }
+# else if (k == 3)
+# {
+#   cin >> a >> b >> c; sum = a + b + c; cout << k << sum;
+# }
+# else
+#   cout << k << sum
+#
+#   Example: input 44 produces   output 64
+#
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+        .ALLOC 10
+N       .DATA
+K       .DATA
+J       .DATA
+c0      .DATA =0
+c1      .DATA =1
+c2      .DATA =2
+sum     .DATA
+
+        .BEGIN
+        READ N
+        LOAD c1
+        STORE K
+
+LOOP1:  LOAD K
+        CLE N
+        BRF ENDLOOP1
+        LOAD c0
+        STORE sum
+
+        LOAD c1
+        STORE J
+
+LOOP2:  LOAD J
+        CLE K
+        BRF ENDLOOP2
+
+        LOAD sum
+        ADD J
+        STORE sum
+
+        LOAD J
+        ADD c2
+        STORE J
+        BRANCH LOOP2
+
+ENDLOOP2: NOOP
+
+        LOAD K
+        ADD c1
+        STORE K
+        BRANCH LOOP1
+
+ENDLOOP1: NOOP
+        HALT
+        .END

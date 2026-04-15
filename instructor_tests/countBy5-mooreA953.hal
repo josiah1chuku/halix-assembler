@@ -1,0 +1,57 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: countBy5-mooreA953.hal
+# Author:       Aja Moore 
+# Date:         10/7/2025
+# Purpose:      Demonstrate a well-formed Halix 
+#               assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+# int Limit, Start=5, k ;
+#   cin >> Limit;
+#   cout << Limit;
+#    for (k=Start; k<=Limit, k+=5)
+#   {
+#       cout << k;
+#   }
+#         k=Start;
+#         while ( k<=Limit)
+#         {
+#             cout << k;t
+#             k += 5;
+#         }
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+        ALLOC. 3
+Limit   .DATA 
+Start   .DATA =5
+k       .DATA 
+
+        .BEGIN 
+            
+            # Read Limit & Write 
+        READ Limit 
+        WRITE Limit 
+
+            # For Loop 
+        LOAD Start
+        STORE k 
+LOOP: LOAD k 
+        CLE Limit
+        BRF ENDL 
+
+            # Output 
+        WRITE k 
+        LOAD k 
+        ADDI =5
+        STORE k 
+        BRANCH LOOP 
+ENDL:   HALT    
+        .END
+
+        

@@ -1,0 +1,41 @@
+.ALLOC  3
+first   .DATA
+second  .DATA
+ans     .DATA
+
+        .BEGIN
+
+        #    cin >> first >> second;
+        READ    first
+        READ    second
+
+        #    if ( first >= second)
+        #    {
+        #        cout << first;
+        #        ans = first * second;     
+        #    }
+IF:     LOAD    first
+        CGE     second
+        BRF     ELSE
+        WRITE   first
+        LOAD    first
+        MULT    second
+        STORE   ans
+        WRITE   ans
+        BRANCH  ENDIF
+
+        #    else
+        #    {
+        #        cout << second
+        #        ans = second + first;   
+        #    }
+        #    cout << ans;
+ELSE:   WRITE   second
+        LOAD    second
+        ADD     first
+        STORE   ans
+        WRITE   ans
+
+ENDIF:  HALT 
+
+        .END

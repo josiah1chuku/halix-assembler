@@ -1,0 +1,57 @@
+# -----------------------------------------------------------------
+# (add2or3.hal) Write a Halix program to implement this pseudo-code.
+#    sum = 0;
+#    cin >> k;
+#    if (k == 2)
+#    {
+#    cin >> a >> b; sum = a + b; cout << k << sum;
+#    }
+#    else if (k == 3)
+#    {
+#    cin >> a >> b >> c; sum = a + b + c; cout << k << sum;
+#    }
+#    else
+#    cout << k << sum;
+# ------------------------------------------------------------------
+    .ALLOC 10
+sum .DATA
+k .DATA
+c2 .DATA
+c3 .DATA
+a .DATA
+b .DATA
+c .DATA
+
+            .BEGIN
+IF:         LOAD k
+            CEQ c2
+            BRF ELSEIF
+
+            READ a
+            READ b 
+            LOAD a 
+            ADD b
+            STORE sum
+            WRITE k
+            WRITE sum
+            BRANCH ELSEIF
+
+ELSEIF:     LOAD k
+            CEQ c3
+            BRF ELSE
+            READ a
+            READ b
+            READ c 
+            LOAD a
+            ADD b 
+            ADD c 
+            STORE sum 
+            WRITE k
+            WRITE sum
+            BRANCH ENDIF
+
+ELSE:       WRITE k 
+            WRITE sum
+
+ENDIF:      HALT 
+            .END

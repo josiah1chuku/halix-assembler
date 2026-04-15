@@ -1,0 +1,61 @@
+#void ShowNum(int num)
+# {
+#    cout << num;
+# }
+
+# int Area(int L, int W)
+# {
+#    return L * W
+# }
+#
+# int Perimeter(int Len, int Wid)
+# {
+#    return 2*Len + 2*Wid;
+# } 
+#
+# int main()
+# {
+#   int L, W, perim, area
+#  cin >> L >> W;
+# ShowNum(L);
+#   ShowNum(W);
+#
+#  area = Area(L, W);
+#   ShowNum(area)
+#
+#  perim = Perimeter(L,W);
+#   ShowNum(perim)
+# }
+
+        .ALLOC 8
+L       .DATA
+W       .DATA
+Area    .DATA
+Perim   .DATA
+two     .DATA =2
+zero    .DATA =0
+
+        .BEGIN
+        READ L
+        READ W
+
+        WRITE L          
+        WRITE W          
+
+        LOAD L
+        MULT W
+        STORE Area       
+        WRITE Area        
+
+        LOAD two
+        MULT L
+        STORE Perim      
+
+        LOAD two
+        MULT W
+        ADD Perim
+        STORE Perim      
+        WRITE Perim       
+
+        HALT
+        .END

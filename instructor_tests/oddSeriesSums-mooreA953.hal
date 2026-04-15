@@ -1,0 +1,73 @@
+# ------------------------------------------
+# Halix Program
+# Program Name: addSeriesSums-mooreA953.hal
+# Author:       Aja Moore 
+# Date:         10/26/2025
+# Purpose:      Demonstrate a well-formed Halix assembler language program.
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Read N
+# for (K=1; K<= N; K++)
+# {
+# Sum = 0
+# for (j=1; j<=K; j+=2)
+# Sum += j
+# Print Sum
+# }
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------    
+        ALLOC. 10
+N   .DATA =0
+K   .DATA =0
+J   .DATA =0 
+c1  .DATA =1
+c2  .DATA =2
+c0 `.DATA =0
+Sum .DATA =0
+
+            # Read N
+        .BEGIN
+        READ N 
+        LOAD c1 
+        STORE K
+        
+            # For Loop1
+LOOP1:  LOAD K 
+        CLE N 
+        BRF ENDLOOP1 
+        LOAD c0
+        STORE Sum 
+            
+            # For Loop2 
+        LOAD c1 
+        STORE J 
+LOOP2:  LOAD J 
+        CLE K 
+        BRF ENDLOOP2 
+        LOAD Sum 
+        ADD J 
+        STORE Sum 
+        WRITE Sum 
+        LOAD J 
+        ADD c2 
+        STORE J 
+        BRANCH LOOP2 
+ENDLOOP2: NOOP 
+        LOAD K 
+        ADD c1 
+        STORE K 
+        BRANCH LOOP1 
+
+            # End Code
+ENDLOOP1: NOOP 
+        HALT
+        .END   
+            
+        
+
+
+
+    
