@@ -1,5 +1,5 @@
 // =============================================================================
-// main.cpp -- HALIX Assembler v4.0  (modular build)
+// main.cpp -- HALIX Assembler v1.5.0  (modular build)
 // Entry point: parses CLI, loads config, runs all five passes in order.
 //
 // Exit codes:
@@ -103,7 +103,7 @@ static void printMan() {
 "    ./halixAssembler --version\n"
 "\n"
 "DESCRIPTION\n"
-"    halixAssembler is a five-pass assembler for the Halix v12 instruction\n"
+"    halixAssembler is a five-pass assembler for the Halix v25 instruction\n"
 "    set. It reads a .hal source file, validates directives, builds symbol\n"
 "    tables, validates operands, and generates .hlx machine code compatible\n"
 "    with the halix.crun runtime.\n"
@@ -288,7 +288,7 @@ static void printMan() {
 "        ./halixAssembler tests/first.hal\n"
 "\n"
 "    Assemble with a custom opcode file:\n"
-"        ./halixAssembler tests/first.hal halix_v25.opcode\n"
+"        ./halixAssembler tests/first.hal halix.opcode\n"
 "\n"
 "    Check output:\n"
 "        cat first.hlx\n"
@@ -302,7 +302,7 @@ static void printMan() {
 "        bash tests/run_all_tests.sh --pass P0\n"
 "\n"
 "INSTRUCTION SET\n"
-"    Supports all 54 Halix v12 instructions loaded from halix.opcode.\n"
+"    Supports all 61 Halix v25 instructions loaded from halix.opcode.\n"
 "    Key instruction groups:\n"
 "      01-09   Memory and arithmetic (READ, WRITE, LOAD, STORE, ADD, SUB, MULT, DIV, MOD)\n"
 "      10-12   Branching (BRANCH, BRT, BRF)\n"
@@ -376,7 +376,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    cout << "=== HALIX Assembler v4.0 ===\n"
+    cout << "=== HALIX Assembler v1.5.0 ===\n"
          << "    Alissa Forde, Dunkley Kimieka, Kiros Kalab M., Josiah Chuku\n"
          << "    Avenger Assembler -- CEN5075, FAMU, 2026\n"
          << "Source : " << srcFile << "\n\n";

@@ -108,7 +108,7 @@ void pass1(const vector<string>& sourceLines, AssemblerContext& ctx) {
                 continue;
             }
 
-            DataSymbol sym = {address, 0, false, blockN};
+            DataSymbol sym = {address, 0, false, blockN, {}};
             sym.initValues = initVals;
             ctx.dataSymbolTable[varName] = sym;
             address += blockN;
@@ -143,7 +143,7 @@ void pass1(const vector<string>& sourceLines, AssemblerContext& ctx) {
             }
         }
 
-        ctx.dataSymbolTable[varName] = {address, value, hasValue, 1};
+        ctx.dataSymbolTable[varName] = {address, value, hasValue, 1, {}};
         address++;
     }
 }
