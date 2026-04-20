@@ -1,0 +1,3 @@
+theme: jekyll-theme-cayman
+title: HALIX Assembler
+description: A production-grade C++ assembler for the Halix v25 instruction set
