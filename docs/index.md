@@ -65,3 +65,17 @@ curl -fsSL https://raw.githubusercontent.com/josiah1chuku/halix-assembler/main/i
 ---
 
 Version 1.5.0 · April 2026
+
+---
+
+## SDLC Documentation
+
+All six project documents are available for download:
+
+- [Software Requirements Specification (SRS)](../documents/01_SRS_HALIX_v1.5.docx)
+- [Software Design Description (SDD)](../documents/02_SDD_HALIX_v1.5.docx)
+- [Implementation Document (IMP)](../documents/03_IMP_HALIX_v1.5.docx)
+- [Test Plan Document (TPD)](../documents/04_TPD_HALIX_v1.5.docx)
+- [Deployment Plan Document (DPD)](../documents/05_DPD_HALIX_v1.5.docx)
+- [Maintenance Plan Document (MPD)](../documents/06_MPD_HALIX_v1.5.docx)
+
