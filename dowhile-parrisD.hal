@@ -1,0 +1,46 @@
+# ------------------------------------------
+# Halix Program
+#
+# Program Name: dowhile-parrisD.hal
+# Author:       parrisD951 Dorien Parris
+# Date:         10/01/2026
+# Purpose:      using a do-while look 
+# ----------------------------------------
+# ________________________________________
+#   
+#    int num, count=0;
+#    do 
+#    {
+#        cin >> num;       
+#        count++;
+#    }
+#    while ( num <= 5);
+#    cout << num << count;
+#
+# ______________________________________
+
+    .ALLOC 4
+num     .DATA
+count   .DATA   =0
+c5      .DATA   =5
+
+.BEGIN
+
+    DO:     READ    num
+            LOAD    count
+            INCR    count
+            STORE   count
+            
+
+            
+            
+WHILE:      LOAD    num
+            CLE     c5
+            BRT     DO
+
+ENDWHILE:   WRITE   num     
+            WRITE   count
+            
+
+         HALT
+        .END

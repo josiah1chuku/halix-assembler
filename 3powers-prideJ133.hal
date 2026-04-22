@@ -1,0 +1,42 @@
+# ------------------------------------------
+# Halix Program
+#
+## Program Name: digits2-prideJ133.hal
+# Author:       prideJ133 Jalen Pride 
+# Date:         9/22/2025
+# Purpose:      Using the Halix assembler language on the previous program.
+#               (3powers)
+# ----------------------------------------
+
+# ------------------------------------------------------
+# pseudocode
+# Write a program that implements the pseudo-code below.
+#  int num, Power;
+
+#   cin >> num;     // 2
+
+#   Power = num * num * num // ==> 8
+#   cout << Power;
+
+# ------------------------------------------------------
+# Source File Below:
+# ------------------------------------------------------
+    .ALLOC 2
+num   .DATA
+Power .DATA
+
+    .BEGIN
+
+        #   cin >> num; 
+    READ  num
+
+        #   Power = num * num * num // ==> 8
+        #   cout << Power;
+    LOAD  num
+    MULT  num
+    MULT  num
+    STORE Power
+    WRITE Power
+    HALT
+
+    .END

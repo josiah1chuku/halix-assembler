@@ -1,0 +1,57 @@
+# ----------------------------------------------------------
+# File name:	3powers-mcnairA799.hal
+# Assign ID:	DEMO
+# Purpose:		Demonstrate Halix assembler language on former assignment using HAL/HASM.
+# Author:		mcnairA799 Adrian McNair
+# ----------------------------------------------------------
+
+# ==========================================================
+# PSEUDO-CODE:
+#		int num, Power;
+
+#   cin >> num;     //2
+#   Power = num * num * num; // ==> 8
+#   cout << Power;
+
+# ==========================================================
+
+
+
+		.ALLOC	2
+num        .DATA
+Power      .DATA
+
+		.BEGIN
+
+        READ num
+        LOAD num
+
+        MULT num
+        MULT num
+        
+        STORE Power
+        WRITE Power
+
+        HALT
+
+
+		.END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

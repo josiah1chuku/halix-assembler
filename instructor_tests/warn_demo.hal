@@ -1,8 +1,0 @@
-.ALLOC 2
-arr  .BLOCK 2
-x    .DATA =5
-.BEGIN
-        LOAD  x
-        WRITE x
-        HALT
-.END
