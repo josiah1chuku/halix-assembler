@@ -40,7 +40,7 @@ static bool resolveOperand(const string& operand, const AssemblerContext& ctx, i
 
 void pass4(const vector<string>& sourceLines, const string& base, const AssemblerContext& ctx) {
     ofstream out(base + ".hlx");
-    ofstream lst(base + ".lst");
+    ofstream lst(base + ".hll");
 
     using DstEntry = std::pair<int, std::pair<string, DataSymbol>>;
     vector<DstEntry> sortedData;
