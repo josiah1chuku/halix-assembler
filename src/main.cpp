@@ -3,7 +3,7 @@
 // Entry point: parses CLI, loads config, runs all five passes in order.
 //
 // Exit codes:
-//   0  success -- .hlx, .lst, .log produced
+//   0  success -- .hlx, .hll, .log produced
 //   1  usage error or file I/O failure
 //   2  errors detected in passes 0-2a (no .hlx produced)
 //   3  errors detected in pass 3     (no .hlx produced)
@@ -43,7 +43,7 @@ static void printHelp() {
 "\n"
 "Output files (written to current directory):\n"
 "  <base>.hlx       Machine code -- run with halix.crun\n"
-"  <base>.lst       Assembly listing with addresses and machine words\n"
+"  <base>.hll       Assembly listing with addresses and machine words\n"
 "  <base>.log       Error and warning log\n"
 "\n"
 "Exit codes:\n"
@@ -239,7 +239,7 @@ static void printMan() {
 "    Pass 2a  Mnemonic validation -- checks all instruction names against IOT\n"
 "    Pass 2b  Label Symbol Table -- assigns IM addresses to all labels\n"
 "    Pass 3   Operand validation -- checks all operands against DST and ILST\n"
-"    Pass 4   Machine code generation -- writes .hlx, .lst, .log files\n"
+"    Pass 4   Machine code generation -- writes .hlx, .hll, .log files\n"
 "\n"
 "OUTPUT FILES\n"
 "    <base>.hlx\n"
@@ -249,7 +249,7 @@ static void printMan() {
 "          Line N+1:   number of data cells\n"
 "          Lines N+2+: 4-digit data values (uninit = 9999)\n"
 "\n"
-"    <base>.lst\n"
+"    <base>.hll\n"
 "        Assembly listing showing source lines alongside machine words\n"
 "        and addresses. Includes data and instruction symbol tables.\n"
 "\n"
@@ -258,7 +258,7 @@ static void printMan() {
 "        On failure: lists each error with line number and ^ pointer.\n"
 "\n"
 "EXIT CODES\n"
-"    0   Assembly successful -- .hlx, .lst, .log all produced\n"
+"    0   Assembly successful -- .hlx, .hll, .log all produced\n"
 "    1   Usage error or file I/O failure -- check file path\n"
 "    2   Errors in passes 0-2a -- directive or mnemonic errors\n"
 "    3   Errors in pass 3 -- operand errors (undefined variable or label)\n"
@@ -292,7 +292,7 @@ static void printMan() {
 "\n"
 "    Check output:\n"
 "        cat first.hlx\n"
-"        cat first.lst\n"
+"        cat first.hll\n"
 "        cat first.log\n"
 "\n"
 "    Run the test suite:\n"
@@ -435,7 +435,7 @@ int main(int argc, char* argv[]) {
 
     cout << Color::GREEN << "\nAssembly successful." << Color::RESET << "\n"
          << "Output : " << base << ".hlx\n"
-         << "Listing: " << base << ".lst\n"
+         << "Listing: " << base << ".hll\n"
          << "Log    : " << base << ".log\n";
 
     printSymbolTables(ctx);

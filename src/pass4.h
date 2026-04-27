@@ -2,7 +2,7 @@
 // =============================================================================
 // pass4.h — Pass 4: Machine Code Generation
 // Translates validated source into the legacy halix.crun .hlx format and
-// produces an annotated .lst listing file.
+// produces an annotated .hll listing file.
 //
 // .hlx format (line numbers):
 //   1           codeSize
